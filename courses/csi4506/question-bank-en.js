@@ -1,4 +1,4 @@
-/* English translations of the French question bank. Keep rows aligned with question-bank.js. */
+/* English translations of the French question bank. Keep rows aligned with question-bank.js, which must load first. */
 (() => {
   const data = {
     chapitre1: {
@@ -258,16 +258,17 @@
       ]
     }
   };
+  const course = window.COURSES.csi4506;
   const translations = {};
   for (const [chapter, bank] of Object.entries(data)) {
     const n = Number(chapter.replace("chapitre", ""));
     bank.tf.forEach((r, i) => translations[`ch${n}_tf${String(i+1).padStart(3,"0")}`] = ({question:r[0], hint:r[1], explanation:r[2], concept:r[3]}));
     bank.mc.forEach((r, i) => {
       const id = `ch${n}_mc${String(i+1).padStart(3,"0")}`;
-      const answerIndex = window.QUESTION_BANK?.[chapter]?.find(q => q.id === id)?.answer;
+      const answerIndex = course.chapters[chapter]?.questions.find(q => q.id === id)?.answer;
       translations[id] = {question:r[0], options:r[1], hint:r[2], optionExplanations:r[3], explanation:r[3]?.[answerIndex], concept:r[4]};
     });
   }
-  window.QUESTION_BANK_EN = translations;
-  window.CHAPTERS_EN = Object.fromEntries(Object.entries(data).map(([key, value]) => [key, value.title]));
+  course.translations = translations;
+  for (const [key, value] of Object.entries(data)) if (course.chapters[key]) course.chapters[key].titleEn = value.title;
 })();

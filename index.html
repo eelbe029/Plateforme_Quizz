@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5f0">
-  <title>CSI 4506 · Révision interactive</title>
+  <title>Révision interactive</title>
   <link rel="stylesheet" href="styles.css">
-  <script defer src="question-bank.js"></script>
-  <script defer src="question-bank-en.js"></script>
+  <!-- Each course registers itself in window.COURSES; load a course's French bank before its translations. -->
+  <script defer src="courses/csi4506/question-bank.js"></script>
+  <script defer src="courses/csi4506/question-bank-en.js"></script>
+  <script defer src="courses/ceg4799/question-bank.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#home" aria-label="Accueil CSI 4506">
+    <a class="brand" href="#home" aria-label="Accueil">
       <span class="brand-mark">AI</span>
-      <span><strong>CSI 4506</strong><small>Révision interactive</small></span>
+      <span><strong id="brand-name">Cours</strong><small>Révision interactive</small></span>
     </a>
-    <div class="top-actions"><span class="quiet-label" id="course-label">Fiches de cours · Automne 2026</span><button class="button button-quiet" id="language-toggle" type="button" aria-label="Passer en anglais">English</button><button class="button button-quiet" id="home-button" type="button">Accueil</button></div>
+    <div class="top-actions"><span class="quiet-label" id="course-label"></span><button class="button button-quiet" id="language-toggle" type="button" aria-label="Passer en anglais">English</button><button class="button button-quiet" id="home-button" type="button">Accueil</button></div>
   </header>
 
   <main id="app" class="shell" aria-live="polite"></main>
