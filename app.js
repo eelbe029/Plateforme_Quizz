@@ -54,7 +54,7 @@
     "question(s) incorrecte(s) ou passée(s)":"incorrect or skipped question(s)", "Parfait, aucune erreur.":"Perfect, no mistakes.", "Tu peux recommencer avec un autre mélange pour consolider les notions.":"Try another shuffled session to reinforce the concepts.",
     "Revoir toutes les questions et les explications":"Review all questions and explanations", "Choix proposés :":"Answer choices:", "Ton choix :":"Your choice:", "Réponse :":"Answer:",
     "les questions vivent dans":"questions live in", "; d'autres questions pourront y être ajoutées sans changer l'application.":"; more questions can be added there without changing the application.",
-    "Explication :":"Explanation:", "Distracteur":"Distractor", "Niveau :":"Difficulty:", "Retour aux chapitres":"Back to chapters", "Aucune donnée":"No data",
+    "Ton choix":"Your choice", "Explication :":"Explanation:", "Distracteur":"Distractor", "Niveau :":"Difficulty:", "Retour aux chapitres":"Back to chapters", "Aucune donnée":"No data",
     "Quitter la séance? La tentative incomplète ne sera pas ajoutée à l'historique.":"Leave this session? The incomplete attempt will not be added to your history.",
     "Facile":"Easy", "Vrai":"True", "Faux":"False", "Choix multiple":"Multiple choice", "Non répondu":"Not answered"
   };
@@ -295,12 +295,23 @@
   function skipQuestion(q) { if(q.locked) return; q.selected=null; q.locked=true; q.isCorrect=false; if(currentIndex===questionTotal()-1) finishSession(); else advance(); }
   function advance() { if(currentIndex < questionTotal()-1) { currentIndex++; renderQuiz(); } else finishSession(); }
 
+  // Correction shown directly under one answer: its status, its own explanation and, under the
+  // correct answer, the general explanation when it adds something the option's text does not.
+  function answerCorrection(q, o, otherLabel) {
+    const chosen = answered(q) && q.selected === o.id;
+    const labels = [o.isCorrect ? "Bonne réponse" : "", chosen ? "Ton choix" : ""].filter(Boolean);
+    const parts = [];
+    if (o.explanation) parts.push(`<p>${txt(o.explanation)}</p>`);
+    if (o.isCorrect && q.explanation && q.explanation !== o.explanation) parts.push(`<p><strong>Pourquoi :</strong> ${txt(q.explanation)}</p>`);
+    if (o.isCorrect && !q.explanation && !o.explanation) parts.push(`<p><strong>Pourquoi :</strong> Voir la distinction conceptuelle visée.</p>`);
+    if (!labels.length && !parts.length) return "";
+    const status = o.isCorrect ? "is-correct" : chosen ? "is-wrong" : "";
+    return `<div class="answer-correction ${status}"><span class="correction-label">${labels.length ? labels.join(" · ") : otherLabel}</span>${parts.join("")}</div>`;
+  }
   function renderFeedback(q) {
     const ok=q.isCorrect===true;
     const answer=q.selected===null?"Tu as passé cette question.":`Ta réponse : <strong>${txt(selectedLabel(q))}</strong>.`;
-    let details="";
-    if(q.type==="multiple_choice") details=`<div class="feedback-options">${q.options.map(o=>`<div class="${o.isCorrect?"correct-choice":""}"><strong>${o.isCorrect?"Bonne réponse":"Choix"} :</strong> ${txt(o.text)}${o.explanation?` — ${txt(o.explanation)}`:""}</div>`).join("")}</div>`;
-    return `<div class="feedback-box ${ok?"correct":"incorrect"}"><div class="feedback-title">${ok?"Bonne réponse":"À revoir"} · Réponse correcte : ${txt(correctText(q))}</div><p>${answer}</p><p><strong>Pourquoi :</strong> ${q.explanation?txt(q.explanation):"Voir la distinction conceptuelle visée."}</p>${details}<p><strong>Concept :</strong> ${txt(q.concept)} · <strong>Source :</strong> ${txt(sourceLabel(q))}</p><p><strong>À retenir :</strong> reformule la règle avec tes mots et applique-la à un exemple différent.</p></div>`;
+    return `<div class="feedback-box ${ok?"correct":"incorrect"}"><div class="feedback-title">${ok?"Bonne réponse":"À revoir"} · Réponse correcte : ${txt(correctText(q))}</div><p>${answer}</p><p><strong>Concept :</strong> ${txt(q.concept)} · <strong>Source :</strong> ${txt(sourceLabel(q))}</p><p><strong>À retenir :</strong> reformule la règle avec tes mots et applique-la à un exemple différent.</p></div>`;
   }
   const codeBlock = q => q.code ? `<pre class="question-code" translate="no"><code>${esc(q.code)}</code></pre>` : "";
   function renderQuiz() {
@@ -310,7 +321,11 @@
       <div class="progress-track"><div class="progress-fill" style="width:${((currentIndex+(q.locked?1:0))/questionTotal())*100}%"></div></div>
       <section class="question-card panel"><div class="question-meta"><span class="tag">${type}</span>${q.difficulty?`<span class="tag gold">${difficultyLabel(q.difficulty)}</span>`:""}<span class="tag green" translate="no">${esc(q.concept)}</span></div>
         <h2 translate="no">${esc(q.question)}</h2>${codeBlock(q)}
-        <div class="answers">${rows.map((o,i)=>`<label class="answer-option ${q.selected===o.id?"selected":""} ${q.locked&&o.isCorrect?"selected":""}"><input type="radio" name="answer" value="${esc(o.id)}" ${q.selected===o.id?"checked":""} ${q.locked?"disabled":""}><span class="answer-marker">${q.type==="true_false"?(o.id==="true"?"A":"B"):String.fromCharCode(65+i)}</span><span class="answer-copy" ${q.type==="true_false"?"":`translate="no"`}>${esc(o.text)}</span></label>`).join("")}</div>
+        <div class="answers">${rows.map((o,i)=>{
+          const corrected=q.locked&&session.mode==="review";
+          const state=corrected?(o.isCorrect?"is-correct":q.selected===o.id?"is-wrong":""):(q.selected===o.id?"selected":"");
+          return `<div class="answer-item"><label class="answer-option ${state}"><input type="radio" name="answer" value="${esc(o.id)}" ${q.selected===o.id?"checked":""} ${q.locked?"disabled":""}><span class="answer-marker">${q.type==="true_false"?(o.id==="true"?"A":"B"):String.fromCharCode(65+i)}</span><span class="answer-copy" ${q.type==="true_false"?"":`translate="no"`}>${esc(o.text)}</span></label>${corrected?answerCorrection(q,o,"Choix"):""}</div>`;
+        }).join("")}</div>
         ${q.hintUsed&&!q.locked?`<div class="hint-box"><strong>Indice :</strong> ${txt(q.hint)}</div>`:""}
         ${q.locked&&session.mode==="review"?renderFeedback(q):""}
         <div class="question-actions">${q.locked?`<span class="locked-note">Réponse enregistrée${q.hintUsed?" · indice utilisé":""}</span>`:q.hint?`<button class="button button-secondary" id="hint-button" ${q.hintUsed?"disabled":""}>${q.hintUsed?"Indice affiché":"Afficher un indice"}</button>`:"<span></span>"}
@@ -353,9 +368,12 @@
     view="results"; render();
   }
   function renderQuestionReview(q,index) {
-    const options=q.type==="multiple_choice"?`<p><strong>Choix proposés :</strong> ${txt(q.options.map((o,i)=>`${String.fromCharCode(65+i)}. ${o.text}`).join(" · "))}</p>`:"";
     const selected=selectedLabel(q), correct=correctText(q);
-    return `<article class="wrong-card"><h4>${index+1}. ${txt(q.question)}</h4>${codeBlock(q)}<p><strong>Ton choix :</strong> ${answered(q)?txt(selected):selected} ${q.hintUsed?"· indice utilisé":""}</p><p><strong>Réponse :</strong> ${txt(correct)}</p>${options}<p><strong>Explication :</strong> ${txt(q.explanation)}</p>${q.type==="multiple_choice"?`<div class="feedback-options">${q.options.map(o=>`<div class="${o.isCorrect?"correct-choice":""}"><strong>${o.isCorrect?"Bonne réponse":"Distracteur"} :</strong> ${txt(o.text)}${o.explanation?` — ${txt(o.explanation)}`:""}</div>`).join("")}</div>`:""}<p><strong>Concept :</strong> ${txt(q.concept)}${q.difficulty?` · <strong>Niveau :</strong> ${difficultyLabel(q.difficulty)}`:""}</p><p><strong>Source :</strong> ${txt(sourceLabel(q))}</p></article>`;
+    // Multiple choice: every option with its correction underneath. True/false keeps a single explanation.
+    const body=q.type==="multiple_choice"
+      ?`<div class="review-options">${q.options.map((o,i)=>`<div class="review-option"><div class="review-option-text ${o.isCorrect?"is-correct":answered(q)&&q.selected===o.id?"is-wrong":""}"><span class="answer-marker">${String.fromCharCode(65+i)}</span>${txt(o.text)}</div>${answerCorrection(q,o,"Distracteur")}</div>`).join("")}</div>`
+      :`<p><strong>Explication :</strong> ${txt(q.explanation)}</p>`;
+    return `<article class="wrong-card"><h4>${index+1}. ${txt(q.question)}</h4>${codeBlock(q)}<p><strong>Ton choix :</strong> ${answered(q)?txt(selected):selected} ${q.hintUsed?"· indice utilisé":""}</p><p><strong>Réponse :</strong> ${txt(correct)}</p>${body}<p><strong>Concept :</strong> ${txt(q.concept)}${q.difficulty?` · <strong>Niveau :</strong> ${difficultyLabel(q.difficulty)}`:""}</p><p><strong>Source :</strong> ${txt(sourceLabel(q))}</p></article>`;
   }
   function renderResults() {
     const total=questionTotal(), correct=scoreOf(session), possible=pointsPossible(session), correctCount=session.questions.filter(q=>q.isCorrect).length, missed=wrongQuestions(session), tf=session.questions.filter(q=>q.type==="true_false"), mc=session.questions.filter(q=>q.type==="multiple_choice");
