@@ -7,7 +7,7 @@ Ouvrir `index.html` dans un navigateur récent. Le site fonctionne localement, s
 | Dossier | Cours | Contenu | Langues |
 | --- | --- | --- | --- |
 | `courses/csi4506/` | CSI 4506 — Introduction à l'intelligence artificielle | Huit chapitres reliés à `Slides_PDF/01.pdf` à `08.pdf`; 15 V/F et 10 QCM par banque. Questions d'entraînement générées à partir des supports, pas des questions officielles. | Français, anglais |
-| `courses/ceg4799/` | CEG 4799 / CSI 4539 — Conception de systèmes informatiques sécuritaires | Quiz 1, 2, 3, 4 et 6 (130 QCM), extraits des corrigés `Quiz1-Sol.pdf` à `Quiz6-Sol.pdf`. | Français |
+| `courses/ceg4799/` | CEG 4799 / CSI 4539 — Conception de systèmes informatiques sécuritaires | Quiz 1, 2, 3, 4 et 6, tutorat 1 et partie I de l'examen de préparation (186 QCM). | Français |
 
 ### CSI 4506
 
@@ -19,10 +19,13 @@ Ouvrir `index.html` dans un navigateur récent. Le site fonctionne localement, s
 
 ### CEG 4799 / CSI 4539
 
+- Sources : corrigés `Quiz1-Sol.pdf` à `Quiz6-Sol.pdf`, énoncés de `Quiz4.pdf`, `TUT01-FR.pptx` et `Exam_Pratique.pdf`.
 - Une séance reprend toutes les questions du quiz choisi (60 minutes au maximum).
-- Les questions, les choix et les explications reprennent le texte des corrigés. Les corrigés ne donnent ni indice ni niveau de difficulté; le concept correspond au sujet ou à la section du quiz et la source renvoie au quiz et à la diapositive ou au chapitre.
+- Les questions, les choix et les explications reprennent le texte des sources. Les corrigés ne donnent ni indice ni niveau de difficulté; le concept correspond au sujet ou à la section du quiz et la source renvoie au quiz et à la diapositive ou au chapitre.
 - Quiz 1 : l'explication combine la « solution détaillée » et le paragraphe sur les autres options. Quiz 6 : seule la bonne réponse a une justification.
-- Quiz 4 : le corrigé n'imprime que la bonne réponse. Les énoncés reprennent les titres des questions sous forme de question et le texte des distracteurs est reformulé à partir de leurs explications.
+- Quiz 4 : énoncés et choix tirés de `Quiz4.pdf`, explications par choix tirées du corrigé `Quiz4-Sol.pdf`. `TUT04-FR.pptx` contient les mêmes 30 questions; il n'est donc pas ajouté séparément.
+- Tutorat 1 : seuls les exercices 1 (classer politique, mécanisme ou mise en œuvre) et 3 (Set-UID root ou capacité ciblée) ont une réponse fermée; ils donnent 6 questions. L'exercice 2 et les questions ouvertes ne sont pas repris.
+- Examen de préparation : les 50 QCM de la partie I, avec le corrigé détaillé d'une ligne par question. Les questions de développement (partie II) ne sont pas reprises : l'application ne corrige que des QCM et des vrai/faux.
 - Pas encore de traduction anglaise : en mode anglais, l'interface est traduite et les questions restent en français.
 
 ## Ajouter un cours

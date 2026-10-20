@@ -1,10 +1,9 @@
 /*
- * CEG 4799 / CSI 4539 — questions extraites des corrigés Quiz1-Sol à Quiz6-Sol (PDF).
+ * CEG 4799 / CSI 4539 — questions extraites des corrigés Quiz1-Sol à Quiz6-Sol et de Quiz4 (PDF),
+ * du tutorat 1 (TUT01, exercices 1 et 3) et de l'examen de préparation (partie I).
  * Français seulement pour l'instant. Chaque question : énoncé, extrait de code facultatif,
  * quatre choix (texte et explication facultative), index de la bonne réponse, explication,
- * concept et source. Au Quiz 4, le corrigé n'imprime que la bonne réponse : les énoncés
- * reprennent les titres des questions et les distracteurs sont reformulés à partir de leurs
- * explications.
+ * concept et source.
  */
 window.COURSES = window.COURSES || {};
 window.COURSES.ceg4799 = {
@@ -26,7 +25,7 @@ window.COURSES.ceg4799 = {
     ]
   },
   "intro": {
-    "fr": "Cinq quiz à choix multiples tirés des corrigés du cours : politiques et posture de sécurité, authentification et contrôle d'accès, programmes privilégiés, débordement de tampon, chaînes de format, conditions de course et Dirty COW."
+    "fr": "Quiz à choix multiples tirés des corrigés du cours, du tutorat 1 et de l'examen de préparation : politiques et posture de sécurité, authentification et contrôle d'accès, programmes privilégiés, débordement de tampon, retour à la libc, chaînes de format, conditions de course et Dirty COW."
   },
   "timerNote": {
     "fr": "Simulation chronométrée : 60 minutes.",
@@ -481,6 +480,145 @@ window.COURSES.ceg4799 = {
           "explanation": "La diapositive 51 (« Les six fonctions, NIST CSF 2.0 ») précise : « “Gouverner” a été ajouté en 2024 : sans décision ni budget, les cinq autres fonctions restent des intentions. » Identifier, Détecter et Récupérer font partie des cinq fonctions d'origine (avec Protéger et Répondre).",
           "concept": "Politiques, mécanismes et posture",
           "source": "Quiz 1, diapositive 51"
+        }
+      ]
+    },
+    "tutorat1": {
+      "title": "Politiques, programmes privilégiés et propriétés",
+      "label": "Tutorat 1",
+      "questions": [
+        {
+          "id": "ceg4799_tutorat1_q01",
+          "question": "Exercice 1, énoncé a) — classer : politique, mécanisme ou mise en œuvre ?",
+          "code": "« Seuls les auxiliaires d'enseignement modifient les notes. »",
+          "options": [
+            {
+              "text": "Politique",
+              "explanation": "Politique : ce qui est permis ou interdit (l'intention)."
+            },
+            {
+              "text": "Mécanisme",
+              "explanation": "Mécanisme : le moyen technique offert par le système."
+            },
+            {
+              "text": "Mise en œuvre",
+              "explanation": "Mise en œuvre : la configuration concrète et vérifiable."
+            }
+          ],
+          "answer": 0,
+          "explanation": "Politique : ce qui est permis ou interdit (l'intention). a et e sont des politiques. Une politique est indépendante du mécanisme : la même intention peut s'appliquer par des permissions, des ACL ou des capacités.",
+          "concept": "Politique, mécanisme, mise en œuvre",
+          "source": "Tutorat 1, diapositives 13 et 14"
+        },
+        {
+          "id": "ceg4799_tutorat1_q02",
+          "question": "Exercice 1, énoncé b) — classer : politique, mécanisme ou mise en œuvre ?",
+          "code": "chmod 640 notes.csv",
+          "options": [
+            {
+              "text": "Politique",
+              "explanation": "Politique : ce qui est permis ou interdit (l'intention)."
+            },
+            {
+              "text": "Mécanisme",
+              "explanation": "Mécanisme : le moyen technique offert par le système."
+            },
+            {
+              "text": "Mise en œuvre",
+              "explanation": "Mise en œuvre : la configuration concrète et vérifiable."
+            }
+          ],
+          "answer": 2,
+          "explanation": "Mise en œuvre : la configuration concrète et vérifiable. b et d sont des mises en œuvre d'un mécanisme (permissions, ACL). Une politique est indépendante du mécanisme : la même intention peut s'appliquer par des permissions, des ACL ou des capacités.",
+          "concept": "Politique, mécanisme, mise en œuvre",
+          "source": "Tutorat 1, diapositives 13 et 14"
+        },
+        {
+          "id": "ceg4799_tutorat1_q03",
+          "question": "Exercice 1, énoncé c) — classer : politique, mécanisme ou mise en œuvre ?",
+          "code": "Les listes de contrôle d'accès (ACL)",
+          "options": [
+            {
+              "text": "Politique",
+              "explanation": "Politique : ce qui est permis ou interdit (l'intention)."
+            },
+            {
+              "text": "Mécanisme",
+              "explanation": "Mécanisme : le moyen technique offert par le système."
+            },
+            {
+              "text": "Mise en œuvre",
+              "explanation": "Mise en œuvre : la configuration concrète et vérifiable."
+            }
+          ],
+          "answer": 1,
+          "explanation": "Mécanisme : le moyen technique offert par le système. c est un mécanisme. Une politique est indépendante du mécanisme : la même intention peut s'appliquer par des permissions, des ACL ou des capacités.",
+          "concept": "Politique, mécanisme, mise en œuvre",
+          "source": "Tutorat 1, diapositives 13 et 14"
+        },
+        {
+          "id": "ceg4799_tutorat1_q04",
+          "question": "Exercice 1, énoncé d) — classer : politique, mécanisme ou mise en œuvre ?",
+          "code": "setfacl -m u:ae:rw notes.csv",
+          "options": [
+            {
+              "text": "Politique",
+              "explanation": "Politique : ce qui est permis ou interdit (l'intention)."
+            },
+            {
+              "text": "Mécanisme",
+              "explanation": "Mécanisme : le moyen technique offert par le système."
+            },
+            {
+              "text": "Mise en œuvre",
+              "explanation": "Mise en œuvre : la configuration concrète et vérifiable."
+            }
+          ],
+          "answer": 2,
+          "explanation": "Mise en œuvre : la configuration concrète et vérifiable. b et d sont des mises en œuvre d'un mécanisme (permissions, ACL). Une politique est indépendante du mécanisme : la même intention peut s'appliquer par des permissions, des ACL ou des capacités.",
+          "concept": "Politique, mécanisme, mise en œuvre",
+          "source": "Tutorat 1, diapositives 13 et 14"
+        },
+        {
+          "id": "ceg4799_tutorat1_q05",
+          "question": "Exercice 1, énoncé e) — classer : politique, mécanisme ou mise en œuvre ?",
+          "code": "« Un mot de passe compte au moins douze caractères. »",
+          "options": [
+            {
+              "text": "Politique",
+              "explanation": "Politique : ce qui est permis ou interdit (l'intention)."
+            },
+            {
+              "text": "Mécanisme",
+              "explanation": "Mécanisme : le moyen technique offert par le système."
+            },
+            {
+              "text": "Mise en œuvre",
+              "explanation": "Mise en œuvre : la configuration concrète et vérifiable."
+            }
+          ],
+          "answer": 0,
+          "explanation": "Politique : ce qui est permis ou interdit (l'intention). a et e sont des politiques. Une politique est indépendante du mécanisme : la même intention peut s'appliquer par des permissions, des ACL ou des capacités.",
+          "concept": "Politique, mécanisme, mise en œuvre",
+          "source": "Tutorat 1, diapositives 13 et 14"
+        },
+        {
+          "id": "ceg4799_tutorat1_q06",
+          "question": "Exercice 3 — Un petit utilitaire réseau doit envoyer un paquet ICMP, ce qui requiert le privilège d'ouvrir un socket brut. Laquelle des deux options respecte le moindre privilège ?",
+          "options": [
+            {
+              "text": "Option A — Set-UID root (chmod u+s outil) : l'outil s'exécute avec tous les droits de root pendant toute son exécution.",
+              "explanation": "En cas d'exploitation, l'attaquant obtient root complet : tout le système. Surface d'attaque maximale."
+            },
+            {
+              "text": "Option B — Capacité ciblée (setcap cap_net_raw+ep outil) : l'outil obtient uniquement le droit d'ouvrir un socket brut, rien d'autre.",
+              "explanation": "En cas d'exploitation, l'attaquant n'obtient qu'une seule capacité : sockets bruts. Surface d'attaque réduite au strict nécessaire."
+            }
+          ],
+          "answer": 1,
+          "explanation": "Option B respecte le moindre privilège. cap_net_raw n'accorde que l'ouverture de sockets bruts; Set-UID root accorde tout (lecture de /etc/shadow, écriture partout, changement d'identité). Vérification : getcap outil affiche « outil = cap_net_raw+ep ».",
+          "concept": "Moindre privilège",
+          "source": "Tutorat 1, diapositives 17 et 18"
         }
       ]
     },
@@ -1802,14 +1940,14 @@ window.COURSES.ceg4799 = {
       "questions": [
         {
           "id": "ceg4799_quiz4_q01",
-          "question": "Reconnaissance au débogueur : quelle est la première mesure à obtenir ?",
+          "question": "Programme vulnérable stack.c : la fonction foo copie une entrée contrôlée par l'attaquant dans char buffer[100] via strcpy. Pour mener l'attaque, quelle est la toute première mesure à obtenir au débogueur avant de fabriquer le fichier ?",
           "options": [
             {
-              "text": "l'adresse de la fonction system() dans la libc",
+              "text": "l'adresse de la fonction system() dans la libc chargée en mémoire",
               "explanation": "L'adresse de system() ne sert qu'à une attaque return-to-libc (chapitre 5), pas à l'injection de shellcode visée ici. Ce n'est ni la première mesure, ni celle qu'exige cette attaque."
             },
             {
-              "text": "le nombre d'octets lus depuis le fichier d'entrée",
+              "text": "le nombre total d'octets que le programme lit dans le fichier",
               "explanation": "Le nombre d'octets lus est un plafond pratique, mais il ne dit pas où tombe l'adresse de retour : la taille sans la géométrie du cadre ne permet pas de construire la charge."
             },
             {
@@ -1817,7 +1955,7 @@ window.COURSES.ceg4799 = {
               "explanation": "C'est la mesure fondatrice : sans la base du tampon et la position du %ebp sauvegardé, on ne peut ni calculer le décalage jusqu'à l'adresse de retour, ni savoir où écrire l'adresse de saut dans le fichier. Toute la fabrication de la charge en dépend."
             },
             {
-              "text": "la valeur du canari de pile",
+              "text": "la valeur du canari que le compilateur insère dans le cadre",
               "explanation": "Le binaire est compilé sans canari (contexte SEED). Chercher une valeur qui n'existe pas est un contresens, et ce ne serait de toute façon pas la première mesure de repérage."
             }
           ],
@@ -1828,22 +1966,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q02",
-          "question": "Où placer le point d'arrêt pour relever les adresses ?",
+          "question": "Dans le programme vulnérable, foo copie l'entrée dans char buffer[100] par strcpy. Pour relever au débogueur l'adresse du tampon et celle du %ebp sauvegardé, où places-tu ton point d'arrêt ?",
           "options": [
             {
               "text": "dans foo, juste après la copie, tant que le cadre existe encore",
               "explanation": "Les adresses du tampon et du %ebp sauvegardé n'ont de sens que pendant la vie du cadre de foo. En s'arrêtant juste après strcpy, le cadre est entièrement construit et encore sur la pile : p &buffer et p $ebp donnent des valeurs valides et cohérentes."
             },
             {
-              "text": "sur l'instruction ret de foo",
+              "text": "sur l'instruction ret de foo, une fois les locaux libérés",
               "explanation": "Sur ret, l'épilogue (leave) a déjà restauré %ebp et libéré les locaux. Le tampon n'est plus adressable de la même façon et $ebp ne pointe plus sur le cadre de foo : les relevés seraient faux."
             },
             {
-              "text": "à l'entrée de main",
+              "text": "à l'entrée de main, bien avant l'ouverture du fichier d'entrée",
               "explanation": "À l'entrée de main, le cadre de foo n'existe pas encore : on ne peut pas lire l'adresse d'un tampon non alloué."
             },
             {
-              "text": "à l'intérieur du code de strcpy",
+              "text": "dans la libc, à l'intérieur du code de strcpy elle-même",
               "explanation": "Entrer dans le code de strcpy éloigne du cadre de foo : on observerait le cadre de strcpy, pas celui qu'il faut mesurer."
             }
           ],
@@ -1854,19 +1992,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q03",
-          "question": "Quel est le décalage entre la base du tampon et le %ebp sauvegardé ?",
-          "code": "Données : &buffer = 0xbfffeb1c, $ebp = 0xbfffeb88.",
+          "question": "Au débogueur, pour la fonction vulnérable, p &buffer donne 0xbfffeb1c et p $ebp donne 0xbfffeb88. Quel est le décalage entre la base du tampon et le %ebp sauvegardé ?",
           "options": [
             {
-              "text": "100 octets (0x64), la taille déclarée du tampon",
+              "text": "100 octets (0x64), soit la taille déclarée du tampon buffer",
               "explanation": "100 (0x64) est la taille déclarée du tampon, pas le décalage mesuré : cela ignore le bourrage d'alignement — l'erreur classique de supposer le tampon collé au %ebp."
             },
             {
-              "text": "112 octets (0x70)",
+              "text": "112 octets (0x70), jusqu'à l'adresse de retour comprise",
               "explanation": "112 (0x70) va trop loin : c'est à peu près la distance jusqu'à l'adresse de retour (voir Q5), pas jusqu'au %ebp sauvegardé."
             },
             {
-              "text": "104 octets (0x68), en comptant un canari",
+              "text": "104 octets (0x68), le tampon plus les octets du canari",
               "explanation": "104 (0x68) suppose des octets de canari inexistants dans ce binaire et ne correspond pas à la soustraction des deux adresses."
             },
             {
@@ -1881,10 +2018,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q04",
-          "question": "Où se trouve l'adresse de retour dans un cadre 32 bits ?",
+          "question": "Dans un cadre d'appel 32 bits, une fois relevée au débogueur la valeur du %ebp sauvegardé, où se trouve l'adresse de retour du cadre ?",
           "options": [
             {
-              "text": "à $ebp, à la place du %ebp sauvegardé",
+              "text": "à $ebp, qui contient déjà l'adresse de retour du cadre",
               "explanation": "$ebp contient le %ebp sauvegardé (pointeur de cadre de l'appelant), pas l'adresse de retour."
             },
             {
@@ -1892,11 +2029,11 @@ window.COURSES.ceg4799 = {
               "explanation": "Convention 32 bits : call empile l'adresse de retour, puis le prologue (push %ebp) empile l'ancien %ebp. L'adresse de retour est donc immédiatement au-dessus du %ebp sauvegardé, à $ebp + 4 (la pile croît vers les basses adresses, les cadres précédents sont aux adresses plus hautes)."
             },
             {
-              "text": "à $ebp − 4, parmi les variables locales",
+              "text": "à $ebp − 4, juste en dessous du %ebp sauvegardé",
               "explanation": "$ebp − 4 est en dessous, dans les variables locales du cadre courant — pas l'adresse de retour."
             },
             {
-              "text": "à $ebp + 8",
+              "text": "à $ebp + 8, au niveau du premier argument empilé",
               "explanation": "$ebp + 8 pointe sur le premier argument de la fonction, une case trop loin au-dessus de l'adresse de retour."
             }
           ],
@@ -1907,23 +2044,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q05",
-          "question": "À quel octet de l'entrée tombe l'adresse de retour ?",
-          "code": "Données : décalage base du tampon → %ebp sauvegardé = 108 octets.",
+          "question": "Le tampon vulnérable est char buffer[100] et le décalage mesuré entre sa base et le %ebp sauvegardé est de 108 octets. À quel octet de l'entrée tombe alors l'adresse de retour ?",
           "options": [
             {
               "text": "octet 112 : 108 pour le %ebp, plus 4 pour le franchir",
               "explanation": "L'entrée est copiée à partir de la base du tampon : 108 octets pour remplir jusqu'au %ebp sauvegardé (Q3), puis 4 octets de plus pour franchir ce %ebp (cadre 32 bits) et arriver sur l'adresse de retour, à $ebp + 4 (Q4). Elle commence donc à l'octet 112."
             },
             {
-              "text": "octet 108, l'emplacement du %ebp sauvegardé",
+              "text": "octet 108 : la base du tampon coïncide avec le %ebp",
               "explanation": "L'octet 108 écraserait le %ebp sauvegardé, pas l'adresse de retour : la base du tampon en est distante de 108, elle ne coïncide pas avec le %ebp."
             },
             {
-              "text": "octet 100, la taille déclarée du tampon",
+              "text": "octet 100 : le tampon fait exactement cent octets pleins",
               "explanation": "L'octet 100 confond la taille déclarée du tampon avec le décalage réel (même erreur qu'au distracteur A de Q3) et ignore le bourrage."
             },
             {
-              "text": "octet 116 : 108, plus 8",
+              "text": "octet 116 : il faut ajouter huit octets après le %ebp",
               "explanation": "L'octet 116 ajoute 8 au lieu de 4 après le %ebp : cela viserait le premier argument ($ebp + 8), pas l'adresse de retour."
             }
           ],
@@ -1934,14 +2070,14 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q06",
-          "question": "Sous gdb, que désigne « saved eip » dans la sortie de info frame ?",
+          "question": "Sous gdb, pour le cadre de la fonction vulnérable, info frame affiche « saved eip = 0x0804851a ». Que désigne cette valeur pour l'attaque ?",
           "options": [
             {
-              "text": "le sommet de la pile",
+              "text": "le sommet courant de la pile, celui que pointe %esp",
               "explanation": "Le sommet de pile est donné par %esp, pas par « saved eip »."
             },
             {
-              "text": "la base du tampon local",
+              "text": "la base du tampon local de la fonction vulnérable",
               "explanation": "La base du tampon local se relève avec p &buffer ; ce n'est pas « saved eip »."
             },
             {
@@ -1949,7 +2085,7 @@ window.COURSES.ceg4799 = {
               "explanation": "Dans info frame, « saved eip » est l'adresse de retour sauvegardée dans le cadre : c'est là que l'exécution reprendra au ret de la fonction. C'est précisément la case que l'attaque doit écraser."
             },
             {
-              "text": "l'instruction en cours d'exécution",
+              "text": "l'adresse de l'instruction en cours dans la fonction",
               "explanation": "L'instruction en cours est pointée par le %eip courant, pas par le « saved eip », qui concerne l'appelant."
             }
           ],
@@ -1960,10 +2096,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q07",
-          "question": "Pourquoi mesurer le décalage plutôt que le déduire de la taille déclarée du tampon (100) ?",
+          "question": "Le tampon vulnérable est déclaré char buffer[100]. Pourquoi mesurer au débogueur le décalage jusqu'à l'adresse de retour, plutôt que le déduire de cette taille de 100 ?",
           "options": [
             {
-              "text": "parce que le décalage interne au cadre change à chaque exécution",
+              "text": "parce que le décalage change à chaque exécution du même binaire",
               "explanation": "Le décalage interne au cadre est stable pour un même binaire ; c'est l'adresse absolue de la pile qui varie (ASLR), pas l'offset."
             },
             {
@@ -1971,11 +2107,11 @@ window.COURSES.ceg4799 = {
               "explanation": "Le compilateur aligne les variables locales et insère du bourrage : la distance réelle base du tampon → adresse de retour (ici 108/112) dépasse les 100 octets déclarés. Seule la mesure au débogueur donne le vrai décalage."
             },
             {
-              "text": "parce que gdb modifie la disposition du cadre observé",
+              "text": "parce que gdb modifie lui-même la disposition de la pile observée",
               "explanation": "gdb n'altère pas la disposition interne du cadre observé ; le décalage relevé est celui de l'exécution réelle."
             },
             {
-              "text": "parce que deviner l'adresse déclencherait le canari",
+              "text": "parce que deviner l'adresse déclenche toujours le canari de pile",
               "explanation": "Il n'y a pas de canari dans ce binaire ; deviner l'adresse ne déclenche aucune protection."
             }
           ],
@@ -1986,18 +2122,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q08",
-          "question": "Pourquoi les adresses sont-elles stables sous gdb mais décalées à l'exécution directe ?",
+          "question": "Le binaire vulnérable donne des adresses de pile stables sous gdb, mais décalées à l'exécution directe. Quel mécanisme cause cet écart, et comment le neutraliser pour le laboratoire ?",
           "options": [
             {
-              "text": "gdb ajoute des variables d'environnement ; compiler avec -static règle le problème",
+              "text": "gdb ajoute ses variables au cadre de la fonction ; compiler en -static",
               "explanation": "gdb ajoute surtout des variables d'environnement qui décalent légèrement la pile, mais la cause dominante de l'écart est l'ASLR ; -static ne la neutralise pas."
             },
             {
-              "text": "le canari de pile change les adresses de la pile",
+              "text": "le canari change à chaque exécution ; compiler en -fno-stack-protector",
               "explanation": "Le canari ne change pas les adresses de pile et n'est pas en cause ici."
             },
             {
-              "text": "le bit NX décale les adresses relevées",
+              "text": "la pile devient non exécutable ; compiler avec -z execstack",
               "explanation": "Le bit NX (pile non exécutable) empêche l'exécution du shellcode, mais ne décale pas les adresses relevées."
             },
             {
@@ -2012,23 +2148,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q09",
-          "question": "Quels indices de contenu reçoivent les octets de l'adresse de saut ?",
-          "code": "Données : entrée de 300 octets ; &buffer = 0xbfffeb1c, $ebp = 0xbfffeb88.",
+          "question": "Tu fabriques l'entrée comme une liste contenu de 300 octets. Au débogueur, p &buffer donne 0xbfffeb1c et p $ebp donne 0xbfffeb88. Quels indices de contenu reçoivent les quatre octets de l'adresse de saut ?",
           "options": [
             {
               "text": "contenu[112:116] — les quatre octets à partir de l'octet 112",
               "explanation": "Le décalage est 0xbfffeb88 − 0xbfffeb1c = 108 jusqu'au %ebp, +4 pour atteindre l'adresse de retour = octet 112. Les quatre octets de l'adresse occupent donc contenu[112:116] (borne de fin exclue en Python)."
             },
             {
-              "text": "contenu[108:112]",
+              "text": "contenu[108:112] — au niveau du %ebp sauvegardé du cadre",
               "explanation": "contenu[108:112] écrase le %ebp sauvegardé, pas l'adresse de retour."
             },
             {
-              "text": "contenu[100:104]",
+              "text": "contenu[100:104] — juste après la fin du tampon buffer",
               "explanation": "contenu[100:104] est juste après la fin déclarée du tampon, encore dans le bourrage — trop bas."
             },
             {
-              "text": "contenu[116:120]",
+              "text": "contenu[116:120] — quatre octets après l'adresse de retour",
               "explanation": "contenu[116:120] est une case trop loin : cela viserait au-delà de l'adresse de retour."
             }
           ],
@@ -2039,14 +2174,14 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q10",
-          "question": "Vers quoi l'adresse de saut doit-elle pointer (injection sur la pile) ?",
+          "question": "Dans une attaque avec injection de shellcode sur la pile, vers quoi l'adresse de saut écrite dans l'entrée doit-elle pointer ?",
           "options": [
             {
-              "text": "le premier octet exact du shellcode, sans marge",
+              "text": "l'adresse exacte du premier octet du shellcode, sans marge",
               "explanation": "Viser le premier octet exact du shellcode, sans marge, est fragile : la moindre erreur de décalage fait tout rater."
             },
             {
-              "text": "l'adresse de la fonction main",
+              "text": "l'adresse de main, pour relancer le programme depuis le début",
               "explanation": "Sauter à main relance le programme au lieu d'exécuter le shellcode."
             },
             {
@@ -2054,7 +2189,7 @@ window.COURSES.ceg4799 = {
               "explanation": "On vise la glissière de NOP : le processeur y glisse de NOP en NOP jusqu'au shellcode. Cela tolère une imprécision sur l'adresse, puisqu'une zone entière mène au code."
             },
             {
-              "text": "la valeur de %esp au moment du ret",
+              "text": "la valeur de %esp au moment précis où l'instruction ret agit",
               "explanation": "La valeur de %esp au moment du ret n'est pas connue d'avance à l'exécution directe ; on ne peut pas la cibler de façon fiable."
             }
           ],
@@ -2065,19 +2200,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q11",
-          "question": "Quelle adresse de saut atterrit dans la glissière ?",
-          "code": "Données : shellcode en fin d'entrée, glissière avant ; buffer en 0xbfffeb1c.",
+          "question": "Dans l'entrée de 300 octets, le shellcode est placé à la fin et une glissière de NOP remplit l'espace avant lui. Le tampon (char buffer[100]) est en 0xbfffeb1c. Quelle adresse de saut atterrit dans la glissière ?",
           "options": [
             {
-              "text": "0xbfffeb00, sous la base du tampon",
+              "text": "0xbfffeb00, située en dessous de la base du tampon",
               "explanation": "0xbfffeb00 est en dessous de la base du tampon : rien n'y est écrit par la copie."
             },
             {
-              "text": "0xbfffed00, loin au-dessus du tampon",
+              "text": "0xbfffed00, située bien au-delà du dernier octet copié",
               "explanation": "0xbfffed00 est bien au-delà du dernier octet copié (300 octets ≈ jusqu'à 0xbfffec48) : hors de la zone contrôlée."
             },
             {
-              "text": "0xbfffeb8c, l'emplacement de l'adresse de retour",
+              "text": "0xbfffeb8c, l'emplacement même de l'adresse de retour",
               "explanation": "0xbfffeb8c est l'emplacement même de l'adresse de retour : y atterrir relirait une adresse comme instruction, pas la glissière."
             },
             {
@@ -2092,10 +2226,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q12",
-          "question": "Comment s'écrit 0xbfffeb90 en petit-boutiste ?",
+          "question": "Sur x86 (petit-boutiste), comment l'adresse de saut 0xbfffeb90 s'écrit-elle octet par octet dans le fichier d'entrée ?",
           "options": [
             {
-              "text": "bf ff eb 90, dans l'ordre de lecture",
+              "text": "bf ff eb 90, dans l'ordre de lecture de gauche à droite",
               "explanation": "bf ff eb 90 est l'ordre de lecture humain (gros-boutiste), inverse de l'ordre machine x86."
             },
             {
@@ -2103,11 +2237,11 @@ window.COURSES.ceg4799 = {
               "explanation": "x86 est petit-boutiste : l'octet de poids faible (0x90) va à l'adresse la plus basse du fichier, puis eb, ff, bf. L'ordre écrit est donc 90 eb ff bf."
             },
             {
-              "text": "ff bf 90 eb",
+              "text": "ff bf 90 eb, le poids fort placé à l'adresse la plus basse",
               "explanation": "ff bf 90 eb ne correspond à aucune convention : ni poids faible en tête, ni ordre de lecture."
             },
             {
-              "text": "eb 90 bf ff",
+              "text": "eb 90 bf ff, les octets échangés deux par deux dans l'ordre",
               "explanation": "eb 90 bf ff mélange les octets ; ce n'est pas un simple renversement petit-boutiste."
             }
           ],
@@ -2118,18 +2252,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q13",
-          "question": "Pourquoi l'adresse de saut ne doit-elle contenir aucun octet nul ?",
+          "question": "Lors de la copie de l'entrée dans le tampon, pourquoi l'adresse de saut placée dans le fichier ne doit-elle contenir aucun octet nul (0x00) ?",
           "options": [
             {
               "text": "parce que le processeur refuse une adresse contenant un zéro",
               "explanation": "Le processeur accepte parfaitement une adresse contenant un zéro ; le problème est la copie, pas l'exécution."
             },
             {
-              "text": "parce que 0x00 serait exécuté comme un NOP",
+              "text": "parce qu'un 0x00 serait exécuté comme une instruction NOP",
               "explanation": "0x00 n'est pas un NOP (0x90) ; ce n'est pas une question d'exécution ici."
             },
             {
-              "text": "parce qu'un 0x00 décale le reste de l'entrée d'un octet",
+              "text": "parce que le zéro décalerait tout le reste de l'entrée ensuite",
               "explanation": "Un 0x00 n'insère rien : il arrête simplement strcpy, il ne décale pas le reste."
             },
             {
@@ -2144,22 +2278,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q14",
-          "question": "La cible idéale 0xbfffeb00 contient un octet nul. Que faire ?",
+          "question": "L'entrée est copiée par strcpy. Ta cible de saut idéale serait 0xbfffeb00, mais elle contient un octet nul (0x00). Que fais-tu ?",
           "options": [
             {
               "text": "viser une adresse voisine sans octet nul dans la glissière",
               "explanation": "La glissière de NOP offre une plage d'adresses valides : il suffit d'en choisir une voisine sans 0x00 (ex. 0xbfffeb90). Elle atterrit toujours dans la glissière et évite l'arrêt de strcpy."
             },
             {
-              "text": "l'écrire tout de même : strcpy le copiera comme les autres octets",
+              "text": "écrire quand même le 0x00 : strcpy le copiera comme les autres",
               "explanation": "strcpy s'arrêtera au 0x00 : l'écrire ne le copie pas « comme les autres »."
             },
             {
-              "text": "inverser l'ordre des octets de l'adresse",
+              "text": "inverser l'adresse pour placer le zéro en tête du fichier",
               "explanation": "Inverser l'adresse ne supprime pas le zéro ; il resterait présent et arrêterait la copie, en plus de pointer ailleurs."
             },
             {
-              "text": "remplacer l'octet nul par 0x90",
+              "text": "remplacer le 0x00 par 0x90 à l'intérieur même de l'adresse",
               "explanation": "Remplacer l'octet nul par 0x90 change l'adresse en une autre valeur arbitraire qui ne pointe plus où il faut."
             }
           ],
@@ -2170,10 +2304,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q15",
-          "question": "Pourquoi l'adresse de saut est-elle plus délicate en x86-64 ?",
+          "question": "En portant l'attaque de x86 (32 bits) vers x86-64 (64 bits), pourquoi l'écriture de l'adresse de saut devient-elle plus délicate ?",
           "options": [
             {
-              "text": "l'adresse de retour passe sous le pointeur de cadre sauvegardé",
+              "text": "l'adresse de retour se place en dessous du %ebp sauvegardé",
               "explanation": "L'adresse de retour reste au-dessus du pointeur de cadre sauvegardé ; l'ordre ne s'inverse pas en 64 bits."
             },
             {
@@ -2181,11 +2315,11 @@ window.COURSES.ceg4799 = {
               "explanation": "En espace utilisateur 64 bits, les adresses de pile n'utilisent que 48 bits : les octets de poids fort sont nuls (ex. 0x00007fff…). Ces 0x00 arrêtent strcpy, ce qui complique l'écriture de l'adresse."
             },
             {
-              "text": "le tampon local migre de la pile vers le tas",
+              "text": "le tampon local migre du cadre d'appel vers le tas du processus",
               "explanation": "Le tampon local reste sur la pile, il ne migre pas vers le tas."
             },
             {
-              "text": "les arguments sont tous passés par la pile",
+              "text": "les arguments passent par la pile et brouillent la mesure du décalage",
               "explanation": "En x86-64 les premiers arguments passent par registres, pas par la pile ; ce n'est pas la source de la difficulté."
             }
           ],
@@ -2196,15 +2330,14 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q16",
-          "question": "Où placer le shellcode pour maximiser la glissière ?",
-          "code": "Données : entrée de 300 octets, décalage jusqu'au retour = 112 octets.",
+          "question": "Tu construis une entrée de 300 octets et le décalage jusqu'à l'adresse de retour est de 112 octets. Où placer le shellcode pour maximiser la longueur de la glissière de NOP avant lui ?",
           "options": [
             {
-              "text": "au tout début de l'entrée",
+              "text": "au tout début du fichier, aux octets 0 à 40 environ",
               "explanation": "Au tout début, le shellcode serait suivi de l'adresse de retour qu'il faut écraser ; il n'y aurait pas de glissière devant lui et il risque d'être abîmé."
             },
             {
-              "text": "juste avant l'adresse de retour",
+              "text": "juste avant l'adresse de retour, aux octets 72 à 108",
               "explanation": "Juste avant l'adresse de retour, l'espace disponible pour la glissière est minime."
             },
             {
@@ -2212,7 +2345,7 @@ window.COURSES.ceg4799 = {
               "explanation": "Plus le shellcode est repoussé vers la fin, plus la glissière de NOP qui le précède est longue, et plus la zone d'atterrissage tolérant l'imprécision est large."
             },
             {
-              "text": "à l'octet 112",
+              "text": "exactement à l'octet 112, à la place de l'adresse de retour",
               "explanation": "À l'octet 112, le shellcode occuperait la place de l'adresse de retour : il n'y aurait plus d'adresse pour sauter dessus."
             }
           ],
@@ -2223,10 +2356,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q17",
-          "question": "Quel est l'agencement correct des trois morceaux du fichier d'entrée ?",
+          "question": "Tu places le shellcode au tout début de l'entrée et l'adresse de saut à la toute fin, et l'attaque échoue. Quel agencement des trois morceaux fonctionne ?",
           "options": [
             {
-              "text": "le shellcode en tête, puis l'adresse de saut",
+              "text": "le shellcode, puis l'adresse de saut, puis la glissière de NOP",
               "explanation": "Mettre le shellcode en tête puis l'adresse ne place pas l'adresse à l'offset du retour et laisse le shellcode exposé à l'écrasement."
             },
             {
@@ -2234,11 +2367,11 @@ window.COURSES.ceg4799 = {
               "explanation": "La glissière de NOP remplit le début, l'adresse de saut tombe à l'offset de l'adresse de retour, et le shellcode est placé à la fin : l'adresse pointe dans la glissière, qui glisse jusqu'au shellcode. C'est le montage classique du SEED Lab."
             },
             {
-              "text": "l'adresse de saut en tête, puis la glissière et le shellcode",
+              "text": "l'adresse de saut, puis la glissière de NOP, puis le shellcode",
               "explanation": "Commencer par l'adresse de saut ne la met pas au bon offset : elle n'écrase pas l'adresse de retour."
             },
             {
-              "text": "deux glissières encadrant le shellcode, l'adresse de saut au milieu",
+              "text": "le shellcode encadré par deux glissières, l'adresse au milieu",
               "explanation": "Encadrer le shellcode de deux glissières avec l'adresse au milieu désaligne l'adresse par rapport à la case de retour."
             }
           ],
@@ -2249,18 +2382,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q18",
-          "question": "Comment fiabiliser un atterrissage qui tombe parfois à côté du shellcode ?",
+          "question": "Ton adresse de saut est presque juste, mais l'attaque ne réussit qu'un essai sur plusieurs : l'atterrissage tombe parfois à côté du shellcode. Quel ajout à l'entrée fiabilise l'atterrissage ?",
           "options": [
             {
-              "text": "rallonger le shellcode",
+              "text": "rallonger le shellcode pour qu'il occupe toute l'entrée",
               "explanation": "Rallonger le shellcode n'élargit pas la zone d'atterrissage avant lui."
             },
             {
-              "text": "répéter l'adresse de saut plusieurs fois",
+              "text": "répéter l'adresse de saut sur plusieurs cases de contrôle",
               "explanation": "Répéter l'adresse de saut n'aide pas si cette adresse vise un point unique sans marge."
             },
             {
-              "text": "ajouter un canari devant le shellcode",
+              "text": "ajouter un canari valide juste avant l'adresse de retour",
               "explanation": "Il n'y a pas de canari à satisfaire ici ; en ajouter un ne fiabilise rien."
             },
             {
@@ -2275,22 +2408,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q19",
-          "question": "Vers quelle partie de la glissière faire pointer l'adresse de saut ?",
+          "question": "Dans un fichier d'attaque formé d'une glissière de NOP suivie du shellcode, vers quelle partie de la glissière fais-tu pointer l'adresse de saut, et pourquoi ?",
           "options": [
             {
               "text": "vers le milieu, pour tolérer une erreur sur le décalage mesuré",
               "explanation": "Viser le milieu laisse une marge d'erreur des deux côtés : même si le décalage mesuré est légèrement faux, le saut reste dans la glissière et glisse vers le shellcode."
             },
             {
-              "text": "vers le tout début de la glissière",
+              "text": "vers le début, pour parcourir le plus de NOP possible ensuite",
               "explanation": "Viser le tout début ne laisse aucune marge en dessous : une sous-estimation du décalage fait rater la glissière."
             },
             {
-              "text": "vers la fin de la glissière, juste avant le shellcode",
+              "text": "vers la fin, pour ne pas écraser le shellcode placé juste après",
               "explanation": "Viser la fin rapproche dangereusement du shellcode : une petite erreur le dépasserait ou l'entamerait."
             },
             {
-              "text": "vers la base du tampon",
+              "text": "vers la base du tampon, pour repartir du début du cadre d'appel",
               "explanation": "Viser la base du tampon repart sous la glissière, dans une zone qui ne contient pas forcément de NOP exploitables."
             }
           ],
@@ -2301,14 +2434,14 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q20",
-          "question": "Par quel octet remplir la zone d'atterrissage ?",
+          "question": "Pour agrandir la zone d'atterrissage avant le shellcode, par quel octet remplis-tu l'espace, et pourquoi celui-là précisément ?",
           "options": [
             {
-              "text": "0x00",
+              "text": "0x00, car il sépare proprement les morceaux de l'entrée",
               "explanation": "0x00 arrêterait strcpy et ne s'exécute pas comme un NOP : il casserait la copie et la glissière."
             },
             {
-              "text": "0x41 (« A »)",
+              "text": "0x41, car il est facile à repérer dans le débogueur",
               "explanation": "0x41 (« A ») est pratique pour repérer un écrasement, mais ce n'est pas un NOP : il ne fait pas glisser l'exécution."
             },
             {
@@ -2316,7 +2449,7 @@ window.COURSES.ceg4799 = {
               "explanation": "0x90 est l'opcode NOP : le processeur l'exécute sans effet et passe à l'octet suivant. Une suite de 0x90 forme la glissière qui conduit le flot d'exécution jusqu'au shellcode."
             },
             {
-              "text": "l'octet de l'adresse de retour, répété",
+              "text": "l'octet de l'adresse de retour, répété pour la renforcer",
               "explanation": "Répéter l'octet de l'adresse de retour ne crée pas une glissière exécutable menant au shellcode."
             }
           ],
@@ -2327,14 +2460,14 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q21",
-          "question": "Pourquoi initialiser d'abord toute la liste à 0x90 ?",
+          "question": "Dans la construction contenu = [0x90]*300 ; contenu[112:116] = ADRESSE ; contenu[fin] = CHARGE, pourquoi initialiser toute la liste à 0x90 avant d'y écrire l'adresse et le shellcode ?",
           "options": [
             {
-              "text": "parce que fopen exige cette valeur en tête de fichier",
+              "text": "parce que 0x90 est la valeur exigée en tête de fichier par fopen",
               "explanation": "fopen n'exige aucune valeur particulière en tête de fichier."
             },
             {
-              "text": "parce que 0x90 empêche strcpy de s'arrêter",
+              "text": "parce que 0x90 empêche strcpy de s'arrêter avant la fin",
               "explanation": "Ce n'est pas 0x90 qui empêche strcpy de s'arrêter, mais l'absence d'octet nul."
             },
             {
@@ -2342,7 +2475,7 @@ window.COURSES.ceg4799 = {
               "explanation": "En pré-remplissant à 0x90, tout octet qu'on ne réécrit pas ensuite (adresse, shellcode) reste un NOP : la glissière est automatiquement continue, sans trou, entre les parties placées."
             },
             {
-              "text": "pour satisfaire le canari de pile",
+              "text": "parce que 0x90 réinitialise la valeur du canari à chaque octet",
               "explanation": "0x90 n'a aucun lien avec un canari, absent de ce binaire."
             }
           ],
@@ -2353,22 +2486,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q22",
-          "question": "Dans quel ordre écrire les octets de l'adresse à contenu[112:116] ?",
+          "question": "Sur x86 (petit-boutiste), comment les quatre octets de l'adresse de saut, placés à contenu[112:116], doivent-ils être ordonnés ?",
           "options": [
             {
               "text": "en petit-boutiste, le poids faible en premier dans le fichier",
               "explanation": "x86 étant petit-boutiste, les quatre octets de l'adresse s'écrivent poids faible d'abord à l'indice le plus bas (112), de sorte que la mémoire reconstitue l'adresse correcte au chargement."
             },
             {
-              "text": "en gros-boutiste, dans l'ordre de lecture humain",
+              "text": "en gros-boutiste, dans l'ordre de lecture de gauche à droite",
               "explanation": "L'ordre de lecture gros-boutiste est l'inverse de ce que la machine x86 attend."
             },
             {
-              "text": "en caractères ASCII des chiffres hexadécimaux",
+              "text": "en texte ASCII, un caractère par chiffre hexadécimal de l'adresse",
               "explanation": "L'adresse s'écrit en octets binaires bruts, pas en caractères ASCII des chiffres hexadécimaux."
             },
             {
-              "text": "précédés d'un octet nul de marquage",
+              "text": "précédés d'un octet nul qui marque le début de l'adresse",
               "explanation": "Aucun octet nul de marquage ne précède l'adresse : il arrêterait justement strcpy."
             }
           ],
@@ -2379,18 +2512,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q23",
-          "question": "Dans ce montage, pourquoi l'attaquant a-t-il le levier ?",
+          "question": "Le programme vulnérable lit un fichier puis le copie par strcpy dans char buffer[100]. Quelle hypothèse du montage donne à l'attaquant le moyen de déclencher la faille ?",
           "options": [
             {
-              "text": "parce que le fichier est ouvert en lecture seule",
+              "text": "parce que le fichier est ouvert en lecture seule par fopen",
               "explanation": "Le mode d'ouverture (lecture seule) n'a aucun rapport avec l'exploitabilité du débordement."
             },
             {
-              "text": "parce que l'entrée fait exactement 300 octets",
+              "text": "parce que le fichier fait exactement trois cents octets",
               "explanation": "La taille exacte de 300 octets est un choix pratique, pas la condition de la faille."
             },
             {
-              "text": "parce que le fichier est relu à chaque appel",
+              "text": "parce que le fichier est relu à chaque appel de la fonction",
               "explanation": "La relecture à chaque appel ne crée pas la vulnérabilité ; c'est la copie non bornée de données contrôlées."
             },
             {
@@ -2405,10 +2538,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q24",
-          "question": "Quel est l'enjeu quand le binaire vulnérable est Set-UID root ?",
+          "question": "Le binaire vulnérable est Set-UID root. En quoi cela change-t-il l'enjeu d'une attaque par injection de shellcode réussie ?",
           "options": [
             {
-              "text": "Set-UID fait ignorer le contenu du fichier et empêche l'attaque",
+              "text": "cela empêche l'attaque, car Set-UID ignore le contenu du fichier",
               "explanation": "Set-UID n'ignore pas le contenu du fichier et n'empêche pas l'attaque."
             },
             {
@@ -2416,11 +2549,11 @@ window.COURSES.ceg4799 = {
               "explanation": "Un binaire Set-UID root s'exécute avec les privilèges de son propriétaire (root). Le shellcode injecté hérite de ces privilèges : une attaque réussie donne un shell root, d'où la gravité."
             },
             {
-              "text": "Set-UID active automatiquement un canari",
+              "text": "cela active automatiquement le canari de pile à la compilation",
               "explanation": "Set-UID n'active aucun canari ; c'est une option de compilation indépendante."
             },
             {
-              "text": "Set-UID place le tampon en mémoire en lecture seule",
+              "text": "cela déplace le tampon vers un segment mémoire en lecture seule",
               "explanation": "Set-UID ne déplace pas le tampon en lecture seule ; il reste sur la pile."
             }
           ],
@@ -2431,22 +2564,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q25",
-          "question": "Une entrée remplie de « A » (0x41) donne eip = 0x41414141. Qu'en conclut-on ?",
+          "question": "Tu envoies au programme vulnérable une entrée faite uniquement d'octets « A » (0x41). Il y a Segmentation fault et gdb montre eip = 0x41414141. Que conclus-tu ?",
           "options": [
             {
               "text": "le remplissage a atteint et écrasé l'adresse de retour",
               "explanation": "eip = 0x41414141 signifie que les « A » (0x41) ont rempli jusqu'à l'adresse de retour et l'ont écrasée : au ret, le processeur a sauté à 0x41414141. C'est la preuve qu'on contrôle l'adresse de retour."
             },
             {
-              "text": "le débordement a eu lieu sur le tas ou dans le segment Data",
+              "text": "le tas a débordé et corrompu le segment Data du processus",
               "explanation": "Le débordement est sur la pile, pas sur le tas ou le segment Data."
             },
             {
-              "text": "une instruction illégale a été exécutée dans le segment Text",
+              "text": "une instruction illégale s'est exécutée dans le segment Text",
               "explanation": "Le plantage vient d'un saut vers une adresse invalide (0x41414141), pas d'une instruction illégale dans le segment Text."
             },
             {
-              "text": "le canari a interrompu proprement le programme",
+              "text": "le canari a été touché et a interrompu proprement le programme",
               "explanation": "Il n'y a pas de canari : rien n'a interrompu « proprement » le programme."
             }
           ],
@@ -2457,18 +2590,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q26",
-          "question": "eip mélange des octets de l'adresse de saut et des octets de remplissage. Quelle en est la cause ?",
+          "question": "Tampon char buffer[100]. Une entrée de « A » a confirmé que le remplissage atteint l'adresse de retour ; tu y écris ensuite ta vraie adresse de saut, mais le programme plante et gdb montre dans eip un mélange de ton adresse et d'octets de remplissage. Cause la plus probable ?",
           "options": [
             {
-              "text": "un octet nul dans le shellcode",
+              "text": "un octet nul présent quelque part dans le shellcode injecté",
               "explanation": "Un octet nul dans le shellcode tronquerait la copie, mais ne produirait pas ce mélange précis dans eip."
             },
             {
-              "text": "l'ASLR est actif",
+              "text": "l'ASLR encore actif au moment précis de l'exécution du binaire",
               "explanation": "L'ASLR ferait varier l'adresse d'une exécution à l'autre, pas ce décalage constant de 4 octets."
             },
             {
-              "text": "la pile n'est pas exécutable (NX)",
+              "text": "la pile a été rendue non exécutable par une option du compilateur",
               "explanation": "Une pile non exécutable (NX) planterait au moment d'exécuter le shellcode, pas en remplissant eip de ce mélange."
             },
             {
@@ -2483,14 +2616,14 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q27",
-          "question": "Le saut atterrit bien, mais le shellcode est tronqué après quelques octets. Quelle en est la cause ?",
+          "question": "Ton adresse de saut est correcte et le saut atterrit bien dans la glissière, mais le shellcode semble tronqué après quelques octets et l'attaque échoue. Cause la plus probable ?",
           "options": [
             {
-              "text": "la glissière est trop courte",
+              "text": "la glissière de NOP construite est beaucoup trop courte",
               "explanation": "Une glissière trop courte ferait rater l'atterrissage, or ici le saut tombe bien."
             },
             {
-              "text": "l'ASLR a déplacé le shellcode",
+              "text": "l'ASLR a déplacé le shellcode ailleurs sur la pile",
               "explanation": "L'ASLR déplacerait tout le shellcode, pas ne le tronquerait après quelques octets."
             },
             {
@@ -2498,7 +2631,7 @@ window.COURSES.ceg4799 = {
               "explanation": "Si le saut atterrit bien mais que le shellcode est coupé, c'est que strcpy a rencontré un 0x00 situé avant ou au début du shellcode et a interrompu la copie. Il faut produire un shellcode sans octet nul."
             },
             {
-              "text": "le canari a réécrit le shellcode",
+              "text": "le canari de la pile a partiellement réécrit le shellcode",
               "explanation": "Il n'y a pas de canari dans ce binaire pour réécrire le shellcode."
             }
           ],
@@ -2509,10 +2642,10 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q28",
-          "question": "Une attaque qui réussissait hier échoue aujourd'hui. Quelle en est la cause probable ?",
+          "question": "La même attaque, sur le même binaire, réussissait hier et échoue aujourd'hui ; les adresses de pile relevées diffèrent à chaque exécution. Qu'est-ce qui a changé sur le système ?",
           "options": [
             {
-              "text": "un canari a été ajouté à la compilation",
+              "text": "le binaire a été recompilé récemment avec un canari de pile",
               "explanation": "Un canari planterait de façon reproductible, sans faire varier les adresses de pile à chaque exécution."
             },
             {
@@ -2520,11 +2653,11 @@ window.COURSES.ceg4799 = {
               "explanation": "Des adresses de pile différentes à chaque lancement sont la signature de l'ASLR réactivé : l'adresse de saut codée en dur ne correspond plus. Le désactiver à nouveau rétablit des adresses stables."
             },
             {
-              "text": "la pile a été rendue non exécutable",
+              "text": "la pile a été rendue non exécutable par le système d'exploitation",
               "explanation": "Une pile rendue non exécutable échouerait toujours, pas « seulement aujourd'hui », et ne ferait pas varier les adresses."
             },
             {
-              "text": "le fichier d'entrée est ouvert en lecture seule",
+              "text": "le fichier d'entrée a été passé en lecture seule sur le disque",
               "explanation": "Le mode lecture seule du fichier d'entrée n'a aucun effet sur les adresses de pile."
             }
           ],
@@ -2535,18 +2668,18 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q29",
-          "question": "Le saut atterrit dans la glissière, mais le programme fait segfault dès l'exécution des octets 0x90. Pourquoi ?",
+          "question": "Ton adresse de saut atterrit dans la glissière et le shellcode est intact, mais tu obtiens « Segmentation fault » dès l'exécution des octets 0x90. Cause la plus probable ?",
           "options": [
             {
-              "text": "un octet nul dans l'adresse de saut",
+              "text": "l'adresse de saut contenait malgré tout un octet nul (0x00)",
               "explanation": "Un octet nul dans l'adresse aurait empêché d'atterrir correctement ; or le saut tombe bien dans la glissière."
             },
             {
-              "text": "un décalage trop court",
+              "text": "le décalage utilisé était trop court de quatre octets",
               "explanation": "Un décalage trop court aurait fait rater la case de retour, pas atterrir dans la glissière puis planter sur les NOP."
             },
             {
-              "text": "l'ASLR est actif",
+              "text": "l'ASLR était resté actif pendant cette exécution du binaire",
               "explanation": "Un ASLR actif aurait fait manquer l'atterrissage, alors qu'ici le saut tombe dans la glissière."
             },
             {
@@ -2561,22 +2694,22 @@ window.COURSES.ceg4799 = {
         },
         {
           "id": "ceg4799_quiz4_q30",
-          "question": "Quelles conditions rendent l'attaque reproductible ?",
+          "question": "Pour rendre l'attaque par débordement du laboratoire reproductible d'une exécution à l'autre, quelles conditions réunit-on volontairement à la compilation et sur le système ?",
           "options": [
             {
               "text": "ASLR désactivé, pile exécutable, canari retiré à la compilation",
               "explanation": "Les trois protections sont volontairement levées pour le laboratoire : ASLR désactivé (adresses stables), pile exécutable (-z execstack, le shellcode peut s'exécuter) et canari retiré (-fno-stack-protector, l'écrasement du retour passe). L'attaque devient alors reproductible."
             },
             {
-              "text": "ASLR, NX et canari tous actifs",
+              "text": "ASLR activé, pile non exécutable et canari laissé en place",
               "explanation": "C'est la configuration durcie inverse : avec ASLR, NX et canari actifs, l'attaque naïve échoue."
             },
             {
-              "text": "compilation statique, -O2 et sans symboles",
+              "text": "binaire statique, compilé en -O2 et sans symboles de débogage",
               "explanation": "Statique, -O2 et sans symboles ne lèvent aucune des trois protections déterminantes."
             },
             {
-              "text": "fichier en lecture seule, exécution sans privilèges",
+              "text": "fichier d'entrée en lecture seule, exécuté sans privilèges",
               "explanation": "Le mode du fichier et l'absence de privilèges ne rendent pas l'exécution reproductible ni n'activent la faille."
             }
           ],
@@ -3295,6 +3428,1116 @@ window.COURSES.ceg4799 = {
           "explanation": "Présente dès 2007 et exploitée en 2016, Dirty COW affectait les systèmes Linux (y compris Android) ; elle a été corrigée par un correctif du noyau.",
           "concept": "Dirty COW · concept",
           "source": "Quiz 6, chapitre 8"
+        }
+      ]
+    },
+    "examen": {
+      "title": "Examen de préparation — Partie I (QCM)",
+      "label": "Examen de préparation",
+      "questions": [
+        {
+          "id": "ceg4799_examen_q01",
+          "question": "Quel est le corollaire de la défense en profondeur énoncé dans le cours ?",
+          "options": [
+            {
+              "text": "La couche extérieure suffit lorsqu'elle est correctement configurée"
+            },
+            {
+              "text": "Aucune couche n'a le droit de faire confiance à la couche extérieure"
+            },
+            {
+              "text": "Les couches internes deviennent inutiles si le périmètre tient"
+            },
+            {
+              "text": "Une seule couche doit concentrer l'ensemble des contrôles"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Corollaire de la défense en profondeur : aucune couche ne doit faire confiance à la couche extérieure.",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 1"
+        },
+        {
+          "id": "ceg4799_examen_q02",
+          "question": "Comment le cours qualifie-t-il une politique sans mécanisme ?",
+          "options": [
+            {
+              "text": "Une norme"
+            },
+            {
+              "text": "Une dépense"
+            },
+            {
+              "text": "Une ligne directrice"
+            },
+            {
+              "text": "Un vœu"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Une politique sans mécanisme pour l'appliquer n'est qu'un simple vœu.",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 2"
+        },
+        {
+          "id": "ceg4799_examen_q03",
+          "question": "Comment le risque est-il défini dans le cours ?",
+          "options": [
+            {
+              "text": "Menace × Vulnérabilité"
+            },
+            {
+              "text": "Probabilité × Impact"
+            },
+            {
+              "text": "Actif × Surface d'attaque"
+            },
+            {
+              "text": "Coût × Exposition"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Le cours définit le risque comme le produit Probabilité × Impact.",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 3"
+        },
+        {
+          "id": "ceg4799_examen_q04",
+          "question": "Quel principe de Saltzer et Schroeder énonce : « En l'absence de règle explicite, on refuse » ?",
+          "options": [
+            {
+              "text": "Médiation complète"
+            },
+            {
+              "text": "Défauts sûrs"
+            },
+            {
+              "text": "Économie de mécanisme"
+            },
+            {
+              "text": "Conception ouverte"
+            }
+          ],
+          "answer": 1,
+          "explanation": "En l'absence de règle explicite, le système refuse l'accès : c'est le principe des « défauts sûrs ».",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 4"
+        },
+        {
+          "id": "ceg4799_examen_q05",
+          "question": "Dans une attaque de la chaîne d'approvisionnement, comment le code malveillant parvient-il aux clients ?",
+          "options": [
+            {
+              "text": "Signé, par le canal officiel de mise à jour"
+            },
+            {
+              "text": "Par une clé USB laissée dans le stationnement"
+            },
+            {
+              "text": "Par un message d'hameçonnage bien ciblé"
+            },
+            {
+              "text": "Par un port de débogage laissé accessible"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Dans une attaque de la chaîne d'approvisionnement, le code malveillant arrive signé, par le canal officiel de mise à jour.",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 5"
+        },
+        {
+          "id": "ceg4799_examen_q06",
+          "question": "Quelle propriété manque le plus souvent, notamment à cause d'un compte partagé « admin » ?",
+          "options": [
+            {
+              "text": "Imputabilité"
+            },
+            {
+              "text": "Authenticité"
+            },
+            {
+              "text": "Non-répudiation"
+            },
+            {
+              "text": "Disponibilité"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Un compte « admin » partagé fait perdre d'abord l'imputabilité (savoir qui a agi).",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 6"
+        },
+        {
+          "id": "ceg4799_examen_q07",
+          "question": "Par quels trois éléments une menace se décrit-elle ?",
+          "options": [
+            {
+              "text": "Un actif, une probabilité et un coût"
+            },
+            {
+              "text": "Un canal, un outil et une cible"
+            },
+            {
+              "text": "Un acteur, une vulnérabilité et un impact"
+            },
+            {
+              "text": "Un acteur, une capacité et une motivation"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Une menace se décrit par un acteur, une capacité et une motivation.",
+          "concept": "Politiques, mécanismes et posture de sécurité",
+          "source": "Examen de préparation, question 7"
+        },
+        {
+          "id": "ceg4799_examen_q08",
+          "question": "Sur quel principe repose techniquement le verrouillage d'un compte par une valeur comme « ! » ?",
+          "options": [
+            {
+              "text": "Aucune sortie de la fonction de hachage ne peut jamais valoir ce texte"
+            },
+            {
+              "text": "Le programme de connexion reconnaît ce texte et ferme la session ouverte"
+            },
+            {
+              "text": "Le noyau retire le compte de la table des identités au prochain démarrage"
+            },
+            {
+              "text": "Le champ devient trop court pour contenir un condensé complet et valide"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Le verrouillage par « ! » tient à ce qu'aucune sortie de hachage ne peut valoir ce texte : la comparaison échoue toujours.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 8"
+        },
+        {
+          "id": "ceg4799_examen_q09",
+          "question": "Qu'exige précisément une authentification à plusieurs facteurs digne de ce nom ?",
+          "options": [
+            {
+              "text": "Deux facteurs pris dans la même catégorie, pour en doubler la force"
+            },
+            {
+              "text": "Deux facteurs pris dans deux catégories différentes parmi les trois"
+            },
+            {
+              "text": "Trois facteurs pris chacun dans une catégorie, sans exception admise"
+            },
+            {
+              "text": "Deux facteurs dont l'un relève obligatoirement de la biométrie seule"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Une authentification multifacteur exige deux facteurs pris dans deux catégories différentes parmi les trois.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 9"
+        },
+        {
+          "id": "ceg4799_examen_q10",
+          "question": "Dans /etc/shadow, on observe « root:! », « daemon:* » et « seed:$6$… ». Que signalent les deux premières valeurs ?",
+          "options": [
+            {
+              "text": "« ! » marque un compte de service, « * » un verrouillage par passwd -l"
+            },
+            {
+              "text": "« ! » marque un verrouillage par passwd -l, « * » un compte de service"
+            },
+            {
+              "text": "« ! » marque un condensé expiré, « * » un compte jamais initialisé ici"
+            },
+            {
+              "text": "« ! » marque un compte sans sel, « * » un condensé volontairement vidé"
+            }
+          ],
+          "answer": 1,
+          "explanation": "« ! » marque un verrouillage (passwd -l) ; « * » marque un compte de service.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 10"
+        },
+        {
+          "id": "ceg4799_examen_q11",
+          "question": "Pourquoi les listes de contrôle d'accès ont-elles été ajoutées au modèle traditionnel d'UNIX ?",
+          "options": [
+            {
+              "text": "Le modèle rwx n'offre que deux classes et ignore totalement les groupes"
+            },
+            {
+              "text": "Le modèle rwx interdit de retirer un droit déjà accordé au propriétaire"
+            },
+            {
+              "text": "Le modèle rwx n'offre qu'un seul groupe et ne nomme aucun utilisateur"
+            },
+            {
+              "text": "Le modèle rwx ne s'applique pas aux fichiers appartenant à root seul"
+            }
+          ],
+          "answer": 2,
+          "explanation": "Les ACL ont été ajoutées car le modèle rwx n'offre qu'un seul groupe et ne nomme aucun utilisateur.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 11"
+        },
+        {
+          "id": "ceg4799_examen_q12",
+          "question": "Qu'est-ce qui distingue le groupe principal d'un utilisateur de ses groupes secondaires ?",
+          "options": [
+            {
+              "text": "Le principal figure dans /etc/passwd et possède les fichiers créés"
+            },
+            {
+              "text": "Le principal figure dans /etc/group et possède les fichiers créés"
+            },
+            {
+              "text": "Le principal peut être multiple, à la différence des groupes secondaires"
+            },
+            {
+              "text": "Le principal ne sert qu'à l'affichage et n'accorde aucun droit réel"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Le groupe principal figure dans /etc/passwd et possède les fichiers créés.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 12"
+        },
+        {
+          "id": "ceg4799_examen_q13",
+          "question": "Un répertoire porte le droit x mais pas le droit r pour un utilisateur donné. Que peut faire cet utilisateur ?",
+          "options": [
+            {
+              "text": "Lister le contenu du répertoire, sans pouvoir ouvrir aucun des fichiers"
+            },
+            {
+              "text": "Créer et supprimer des entrées, sans pouvoir traverser ce répertoire là"
+            },
+            {
+              "text": "Ouvrir tous les fichiers du répertoire, y compris ceux du groupe seul"
+            },
+            {
+              "text": "Ouvrir un fichier dont on connaît le nom, sans pouvoir lister le contenu"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Avec x sans r sur un répertoire, on peut ouvrir un fichier dont on connaît le nom, mais pas lister le contenu.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 13"
+        },
+        {
+          "id": "ceg4799_examen_q14",
+          "question": "Quelle affirmation décrit correctement la nature du umask en tant que mécanisme ?",
+          "options": [
+            {
+              "text": "Il retire des bits par défaut, avant tout chmod explicite ultérieur"
+            },
+            {
+              "text": "Il ajoute des bits par défaut, après tout chmod explicite ultérieur"
+            },
+            {
+              "text": "Il remplace les bits du fichier au moment de chaque ouverture faite"
+            },
+            {
+              "text": "Il impose des bits au groupe, sans jamais toucher aux autres classes"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Le umask retire des bits de permission par défaut, avant tout chmod explicite.",
+          "concept": "Authentification et contrôle d'accès",
+          "source": "Examen de préparation, question 14"
+        },
+        {
+          "id": "ceg4799_examen_q15",
+          "question": "Le fichier /etc/sudoers contient la ligne « %admin ALL=(ALL) NOPASSWD: /usr/bin/systemctl ». Que peut faire exactement un membre du groupe admin ?",
+          "options": [
+            {
+              "text": "Lancer n'importe quelle commande en tant que root sans mot de passe"
+            },
+            {
+              "text": "Lancer systemctl en tant que root sans saisir aucun mot de passe"
+            },
+            {
+              "text": "Lancer systemctl en tant que root après saisie du mot de passe root"
+            },
+            {
+              "text": "Ouvrir un shell root permanent sans saisir aucun mot de passe"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Avec NOPASSWD limité à systemctl, le membre peut lancer systemctl en root sans aucun mot de passe.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 15"
+        },
+        {
+          "id": "ceg4799_examen_q16",
+          "question": "Débordement de tampon, injection SQL, XSS et injection par system() : quelle cause unique le cours attribue-t-il à ces quatre attaques ?",
+          "options": [
+            {
+              "text": "L'attaquant contrôle une variable d'environnement LD_*"
+            },
+            {
+              "text": "La frontière entre données et code n'a pas été tenue"
+            },
+            {
+              "text": "Le programme vulnérable s'exécute avec l'EUID de root"
+            },
+            {
+              "text": "Un descripteur de fichier privilégié n'a pas été fermé"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Ces quatre attaques ont pour cause commune une frontière données/code non tenue.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 16"
+        },
+        {
+          "id": "ceg4799_examen_q17",
+          "question": "Pourquoi l'approche service (démon privilégié qui reçoit des requêtes) réduit-elle la surface d'attaque par rapport à l'approche Set-UID ?",
+          "options": [
+            {
+              "text": "Le service s'exécute sans aucun privilège sur tout le système"
+            },
+            {
+              "text": "Le service est lancé par l'utilisateur avec son propre EUID"
+            },
+            {
+              "text": "Le service n'hérite pas de l'environnement de l'utilisateur"
+            },
+            {
+              "text": "Le service filtre les variables LD_* de l'utilisateur appelant"
+            }
+          ],
+          "answer": 2,
+          "explanation": "L'approche service réduit la surface d'attaque car le démon n'hérite pas de l'environnement de l'appelant.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 17"
+        },
+        {
+          "id": "ceg4799_examen_q18",
+          "question": "« ls -l prog » affiche « -rwsr-xr-x 1 bob staff … prog ». L'utilisateur alice lance prog, qui ouvre un fichier. Avec quels droits le noyau contrôle-t-il cet accès ?",
+          "options": [
+            {
+              "text": "Ceux d'alice, qui a lancé le programme"
+            },
+            {
+              "text": "Ceux du groupe staff, groupe du fichier"
+            },
+            {
+              "text": "Ceux de bob, propriétaire du programme"
+            },
+            {
+              "text": "Ceux de root, car le bit « s » est actif"
+            }
+          ],
+          "answer": 2,
+          "explanation": "Un programme Set-UID s'exécute avec les droits de son propriétaire : ici ceux de bob.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 18"
+        },
+        {
+          "id": "ceg4799_examen_q19",
+          "question": "chsh, programme Set-UID, écrit dans /etc/passwd le shell choisi par l'utilisateur. Un attaquant fournit une valeur qui ajoute une ligne entière avec l'UID 0. Quel défaut est exploité ?",
+          "options": [
+            {
+              "text": "Condition de course : le fichier change entre deux accès"
+            },
+            {
+              "text": "Débordement de tampon : l'adresse de retour est écrasée"
+            },
+            {
+              "text": "Chaîne de format : printf lit puis écrit dans la mémoire"
+            },
+            {
+              "text": "Entrée non assainie : aucune validation du contenu fourni"
+            }
+          ],
+          "answer": 3,
+          "explanation": "L'injection d'une ligne d'UID 0 exploite une entrée non assainie (contenu non validé).",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 19"
+        },
+        {
+          "id": "ceg4799_examen_q20",
+          "question": "Un Set-UID root vérifie que /tmp/rapport appartient bien à l'utilisateur, puis l'ouvre en écriture. Entre les deux, l'attaquant le remplace par un lien vers /etc/shadow. Quel est ce type d'attaque ?",
+          "options": [
+            {
+              "text": "Une injection par PATH qui fait exécuter un faux programme root"
+            },
+            {
+              "text": "Un débordement de tampon provoqué par un nom de fichier trop long"
+            },
+            {
+              "text": "Une fuite de capacités par un descripteur resté ouvert au shell"
+            },
+            {
+              "text": "Une condition de course TOCTTOU entre vérification et usage"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Remplacer la cible entre la vérification et l'ouverture est une condition de course TOCTTOU.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 20"
+        },
+        {
+          "id": "ceg4799_examen_q21",
+          "question": "Un programme privilégié doit lancer un utilitaire en ne lui transmettant que des variables d'environnement sûres. Quel appel lui permet ce choix ?",
+          "options": [
+            {
+              "text": "fork(), qui crée l'enfant avec un environnement entièrement vide"
+            },
+            {
+              "text": "execvp(), qui cherche le programme dans un PATH jugé sûr"
+            },
+            {
+              "text": "execve(), qui reçoit l'environnement en troisième argument"
+            },
+            {
+              "text": "system(), qui transmet au shell un environnement déjà assaini"
+            }
+          ],
+          "answer": 2,
+          "explanation": "execve() reçoit l'environnement à transmettre en troisième argument : il permet de le maîtriser.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 21"
+        },
+        {
+          "id": "ceg4799_examen_q22",
+          "question": "« ls -l /etc/shadow » affiche « -rw-r----- 1 root shadow ». L'utilisateur seed, qui n'appartient pas au groupe shadow, tape « cat /etc/shadow ». Que se passe-t-il ?",
+          "options": [
+            {
+              "text": "Refusé : la classe « autres » n'a aucun droit sur ce fichier"
+            },
+            {
+              "text": "Permis : le groupe shadow accorde la lecture à tout le monde"
+            },
+            {
+              "text": "Refusé : seul le propriétaire root peut accéder à ce fichier"
+            },
+            {
+              "text": "Permis en lecture seule, mais toute écriture lui est refusée"
+            }
+          ],
+          "answer": 0,
+          "explanation": "L'utilisateur tombe dans la classe « autres » (---), donc la lecture de /etc/shadow est refusée.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 22"
+        },
+        {
+          "id": "ceg4799_examen_q23",
+          "question": "Après « sudo setcap cap_net_raw+ep ./mon_ping », la commande getcap affiche « ./mon_ping cap_net_raw=ep ». Que signifient les lettres « e » et « p » ?",
+          "options": [
+            {
+              "text": "La capacité est effective et permise pour ce programme"
+            },
+            {
+              "text": "La capacité est exportée et propagée aux processus enfants"
+            },
+            {
+              "text": "La capacité est effacée puis purgée à la fin du programme"
+            },
+            {
+              "text": "La capacité est exécutable et publique pour tout le monde"
+            }
+          ],
+          "answer": 0,
+          "explanation": "« e » = effective, « p » = permise : la capacité est permise et active pour ce programme.",
+          "concept": "Programmes Set-UID, environnement et moindre privilège",
+          "source": "Examen de préparation, question 23"
+        },
+        {
+          "id": "ceg4799_examen_q24",
+          "question": "Dans une attaque avec injection de shellcode sur la pile, vers quoi l'adresse de saut écrite dans l'entrée doit-elle pointer ?",
+          "options": [
+            {
+              "text": "l'adresse exacte du premier octet du shellcode, sans marge"
+            },
+            {
+              "text": "l'adresse de main, pour relancer le programme depuis le début"
+            },
+            {
+              "text": "un point de la glissière de NOP, au-dessus de la base du tampon"
+            },
+            {
+              "text": "la valeur de %esp au moment précis où l'instruction ret agit"
+            }
+          ],
+          "answer": 2,
+          "explanation": "L'adresse de saut doit pointer dans la glissière de NOP, au-dessus de la base du tampon.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 24"
+        },
+        {
+          "id": "ceg4799_examen_q25",
+          "question": "Le binaire vulnérable donne des adresses de pile stables sous gdb, mais décalées à l'exécution directe. Quel mécanisme cause cet écart, et comment le neutraliser pour le laboratoire ?",
+          "options": [
+            {
+              "text": "gdb ajoute ses variables au cadre de la fonction ; compiler en -static"
+            },
+            {
+              "text": "le canari change à chaque exécution ; compiler en -fno-stack-protector"
+            },
+            {
+              "text": "la pile devient non exécutable ; compiler avec -z execstack"
+            },
+            {
+              "text": "l'ASLR randomise la base de la pile ; le désactiver fige les adresses"
+            }
+          ],
+          "answer": 3,
+          "explanation": "C'est l'ASLR qui fait varier les adresses à l'exécution directe ; on le désactive pour les figer.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 25"
+        },
+        {
+          "id": "ceg4799_examen_q26",
+          "question": "Le tampon vulnérable est déclaré char buffer[100]. Pourquoi mesurer au débogueur le décalage jusqu'à l'adresse de retour, plutôt que le déduire de cette taille de 100 ?",
+          "options": [
+            {
+              "text": "parce que le décalage change à chaque exécution du même binaire"
+            },
+            {
+              "text": "parce que l'alignement et le padding du compilateur décalent l'offset"
+            },
+            {
+              "text": "parce que gdb modifie lui-même la disposition de la pile observée"
+            },
+            {
+              "text": "parce que deviner l'adresse déclenche toujours le canari de pile"
+            }
+          ],
+          "answer": 1,
+          "explanation": "On mesure le décalage car l'alignement et le bourrage le rendent supérieur à la taille déclarée.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 26"
+        },
+        {
+          "id": "ceg4799_examen_q27",
+          "question": "Tu places le shellcode au tout début de l'entrée et l'adresse de saut à la toute fin, et l'attaque échoue. Quel agencement des trois morceaux fonctionne ?",
+          "options": [
+            {
+              "text": "le shellcode, puis l'adresse de saut, puis la glissière de NOP"
+            },
+            {
+              "text": "la glissière, puis l'adresse de saut, puis le shellcode à la fin"
+            },
+            {
+              "text": "l'adresse de saut, puis la glissière de NOP, puis le shellcode"
+            },
+            {
+              "text": "le shellcode encadré par deux glissières, l'adresse au milieu"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Montage correct : glissière de NOP, puis adresse de saut à l'offset du retour, puis shellcode à la fin.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 27"
+        },
+        {
+          "id": "ceg4799_examen_q28",
+          "question": "Le binaire vulnérable est Set-UID root. En quoi cela change-t-il l'enjeu d'une attaque par injection de shellcode réussie ?",
+          "options": [
+            {
+              "text": "cela empêche l'attaque, car Set-UID ignore le contenu du fichier"
+            },
+            {
+              "text": "le code injecté s'exécute avec les privilèges root du propriétaire"
+            },
+            {
+              "text": "cela active automatiquement le canari de pile à la compilation"
+            },
+            {
+              "text": "cela déplace le tampon vers un segment mémoire en lecture seule"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Sur un binaire Set-UID root, le shellcode injecté s'exécute avec les droits root du propriétaire.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 28"
+        },
+        {
+          "id": "ceg4799_examen_q29",
+          "question": "Ton adresse de saut atterrit dans la glissière et le shellcode est intact, mais tu obtiens « Segmentation fault » dès l'exécution des octets 0x90. Cause la plus probable ?",
+          "options": [
+            {
+              "text": "l'adresse de saut contenait malgré tout un octet nul (0x00)"
+            },
+            {
+              "text": "le décalage utilisé était trop court de quatre octets"
+            },
+            {
+              "text": "l'ASLR était resté actif pendant cette exécution du binaire"
+            },
+            {
+              "text": "la pile n'est pas exécutable (bit NX) : rien ne s'y exécute"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Un segfault dès l'exécution des 0x90 vient d'une pile non exécutable (bit NX).",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 29"
+        },
+        {
+          "id": "ceg4799_examen_q30",
+          "question": "La même attaque, sur le même binaire, réussissait hier et échoue aujourd'hui ; les adresses de pile relevées diffèrent à chaque exécution. Qu'est-ce qui a changé sur le système ?",
+          "options": [
+            {
+              "text": "le binaire a été recompilé récemment avec un canari de pile"
+            },
+            {
+              "text": "l'ASLR réactivé : la base de la pile change à chaque exécution"
+            },
+            {
+              "text": "la pile a été rendue non exécutable par le système d'exploitation"
+            },
+            {
+              "text": "le fichier d'entrée a été passé en lecture seule sur le disque"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Des adresses de pile différentes à chaque exécution signalent la réactivation de l'ASLR.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 30"
+        },
+        {
+          "id": "ceg4799_examen_q31",
+          "question": "Programme vulnérable stack.c : la fonction foo copie une entrée contrôlée par l'attaquant dans char buffer[100] via strcpy. Pour mener l'attaque, quelle est la toute première mesure à obtenir au débogueur avant de fabriquer le fichier ?",
+          "options": [
+            {
+              "text": "l'adresse de la fonction system() dans la libc chargée en mémoire"
+            },
+            {
+              "text": "le nombre total d'octets que le programme lit dans le fichier"
+            },
+            {
+              "text": "l'adresse de base du tampon et celle du %ebp sauvegardé"
+            },
+            {
+              "text": "la valeur du canari que le compilateur insère dans le cadre"
+            }
+          ],
+          "answer": 2,
+          "explanation": "La toute première mesure à relever est la base du tampon et le %ebp sauvegardé.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 31"
+        },
+        {
+          "id": "ceg4799_examen_q32",
+          "question": "Sous gdb, pour le cadre de la fonction vulnérable, info frame affiche « saved eip = 0x0804851a ». Que désigne cette valeur pour l'attaque ?",
+          "options": [
+            {
+              "text": "le sommet courant de la pile, celui que pointe %esp"
+            },
+            {
+              "text": "la base du tampon local de la fonction vulnérable"
+            },
+            {
+              "text": "l'adresse de retour : l'endroit où l'exécution reprend"
+            },
+            {
+              "text": "l'adresse de l'instruction en cours dans la fonction"
+            }
+          ],
+          "answer": 2,
+          "explanation": "« saved eip » est l'adresse de retour, où l'exécution reprend après la fonction.",
+          "concept": "Débordement de tampon et contre-mesures",
+          "source": "Examen de préparation, question 32"
+        },
+        {
+          "id": "ceg4799_examen_q33",
+          "question": "Dans exploit.py, à quel décalage (mesuré depuis le %ebp de bof()) place-t-on l'adresse de system() ?",
+          "options": [
+            {
+              "text": "ebp + 4, à l'adresse de retour de bof()"
+            },
+            {
+              "text": "ebp + 8, juste après l'adresse de retour"
+            },
+            {
+              "text": "ebp + 12, à la place de l'argument"
+            },
+            {
+              "text": "ebp − 4, dans les variables locales"
+            }
+          ],
+          "answer": 0,
+          "explanation": "L'adresse de system() se place à l'adresse de retour de bof(), soit ebp + 4.",
+          "concept": "Retour à la libc",
+          "source": "Examen de préparation, question 33"
+        },
+        {
+          "id": "ceg4799_examen_q34",
+          "question": "Comment obtient-on le décalage jusqu'au %ebp de bof(), que retlib aide à mesurer ?",
+          "options": [
+            {
+              "text": "à partir des deux adresses affichées par retlib : ebp − adresse du tampon"
+            },
+            {
+              "text": "il vaut toujours BUF_SIZE, soit la taille déclarée du tampon"
+            },
+            {
+              "text": "en soustrayant $eip de $esp sous gdb"
+            },
+            {
+              "text": "en retranchant la taille du shellcode des 300 octets"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Le décalage se calcule par ebp − adresse du tampon (les deux valeurs affichées par retlib).",
+          "concept": "Retour à la libc",
+          "source": "Examen de préparation, question 34"
+        },
+        {
+          "id": "ceg4799_examen_q35",
+          "question": "Pour charger la libc puis relever l'adresse de system() et de exit(), quelles commandes gdb utilise-t-on sur retlib ?",
+          "options": [
+            {
+              "text": "break bof, puis print &buffer"
+            },
+            {
+              "text": "run, puis p system et p exit"
+            },
+            {
+              "text": "info registers, puis x/i $eip"
+            },
+            {
+              "text": "disassemble main, puis stepi"
+            }
+          ],
+          "answer": 1,
+          "explanation": "run charge la libc, puis p system et p exit affichent les deux adresses recherchées.",
+          "concept": "Retour à la libc",
+          "source": "Examen de préparation, question 35"
+        },
+        {
+          "id": "ceg4799_examen_q36",
+          "question": "Quelle commande désactive l'ASLR dans la VM SEED pour rendre l'attaque reproductible ?",
+          "options": [
+            {
+              "text": "gcc -z execstack retlib.c"
+            },
+            {
+              "text": "echo 2 > /proc/sys/kernel/randomize_va_space"
+            },
+            {
+              "text": "sudo sysctl -w kernel.randomize_va_space=0"
+            },
+            {
+              "text": "sudo setcap cap_net_raw+ep ./retlib"
+            }
+          ],
+          "answer": 2,
+          "explanation": "sudo sysctl -w kernel.randomize_va_space=0 désactive l'ASLR et fige les adresses.",
+          "concept": "Retour à la libc",
+          "source": "Examen de préparation, question 36"
+        },
+        {
+          "id": "ceg4799_examen_q37",
+          "question": "L'adresse de exit() est placée au décalage ebp + 8, juste après celle de system(). À quoi sert-elle ?",
+          "options": [
+            {
+              "text": "à relancer bof() pour rejouer l'attaque en boucle"
+            },
+            {
+              "text": "à servir d'adresse de retour à system(), pour terminer proprement au lieu de planter"
+            },
+            {
+              "text": "à faire pointer l'exécution vers une glissière de NOP"
+            },
+            {
+              "text": "à libérer la mémoire que system() a allouée"
+            }
+          ],
+          "answer": 1,
+          "explanation": "exit() sert d'adresse de retour à system() : le programme se termine proprement à la fin du shell.",
+          "concept": "Retour à la libc",
+          "source": "Examen de préparation, question 37"
+        },
+        {
+          "id": "ceg4799_examen_q38",
+          "question": "Toujours dans exploit.py, où place-t-on l'adresse de la chaîne « /bin/sh », argument de system() ?",
+          "options": [
+            {
+              "text": "au décalage ebp + 4"
+            },
+            {
+              "text": "au décalage ebp + 8"
+            },
+            {
+              "text": "au décalage ebp + 12"
+            },
+            {
+              "text": "à la base du tampon, décalage 0"
+            }
+          ],
+          "answer": 2,
+          "explanation": "L'adresse de « /bin/sh », argument de system(), se place au décalage ebp + 12.",
+          "concept": "Retour à la libc",
+          "source": "Examen de préparation, question 38"
+        },
+        {
+          "id": "ceg4799_examen_q39",
+          "question": "Quel est l'état actuel de la vulnérabilité Dirty COW ?",
+          "options": [
+            {
+              "text": "elle n'est toujours pas corrigée et touche l'ensemble des noyaux Linux actuellement en service"
+            },
+            {
+              "text": "elle n'a jamais concerné que les systèmes Windows et reste sans effet sur les systèmes Linux"
+            },
+            {
+              "text": "il s'agissait d'un défaut matériel des processeurs x86, corrigé par une mise à jour du microcode"
+            },
+            {
+              "text": "présente dans le noyau Linux depuis 2007 et exploitée en 2016, elle a été corrigée par un correctif"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Dirty COW : apparue de longue date, largement exploitée en 2016, puis corrigée par un correctif du noyau.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 39"
+        },
+        {
+          "id": "ceg4799_examen_q40",
+          "question": "Pourquoi le spécificateur %s provoque-t-il souvent un plantage lorsqu'il est injecté dans une chaîne de format ?",
+          "options": [
+            {
+              "text": "%s déréférence la valeur prise sur la pile comme une adresse ; si elle est invalide, le programme s'arrête"
+            },
+            {
+              "text": "%s déclenche volontairement le canari de pile, dont la vérification interrompt aussitôt l'exécution"
+            },
+            {
+              "text": "%s écrit toujours dans une page mémoire marquée en lecture seule, ce qui déclenche une faute de protection"
+            },
+            {
+              "text": "%s consomme la totalité de l'espace de pile restant, provoquant un dépassement vers le bas de la pile"
+            }
+          ],
+          "answer": 0,
+          "explanation": "%s déréférence une valeur de la pile comme une adresse ; si elle est invalide, le programme plante.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 40"
+        },
+        {
+          "id": "ceg4799_examen_q41",
+          "question": "Que fait mmap() par défaut (mappage adossé à un fichier) ?",
+          "options": [
+            {
+              "text": "il crée un nouveau processus enfant qui partage la pile et les registres du processus parent appelant"
+            },
+            {
+              "text": "il mappe une zone de mémoire virtuelle sur un fichier : lire la zone mappée revient à lire le fichier"
+            },
+            {
+              "text": "il chiffre le contenu d'un fichier sur place, en mémoire, puis réécrit le résultat chiffré sur le disque"
+            },
+            {
+              "text": "il alloue une zone de mémoire sur le tas et la remplit de zéros avant de la rendre au programme appelant"
+            }
+          ],
+          "answer": 1,
+          "explanation": "mmap (adossé à un fichier) relie une zone mémoire au contenu d'un fichier.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 41"
+        },
+        {
+          "id": "ceg4799_examen_q42",
+          "question": "Qu'est-ce qu'une vulnérabilité de type TOCTTOU ?",
+          "options": [
+            {
+              "text": "un intervalle entre la vérification et l'utilisation d'une ressource, durant lequel celle-ci peut changer"
+            },
+            {
+              "text": "un interblocage entre deux fils d'exécution qui détiennent chacun un verrou attendu par l'autre"
+            },
+            {
+              "text": "un débordement de tampon qui ne se manifeste qu'à une heure précise de la journée, selon l'horloge système"
+            },
+            {
+              "text": "une attaque temporelle qui mesure la durée d'une comparaison cryptographique pour deviner un secret"
+            }
+          ],
+          "answer": 0,
+          "explanation": "Une TOCTTOU est un intervalle entre la vérification et l'utilisation d'une ressource, durant lequel elle peut changer.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 42"
+        },
+        {
+          "id": "ceg4799_examen_q43",
+          "question": "La chaîne de format vient de l'utilisateur. Que fait gcc compilé avec l'option -Wformat=2 ?",
+          "code": "char *fmt = lire_entree();\nprintf(fmt, 5, 4);",
+          "options": [
+            {
+              "text": "il ne signale rien, car des arguments sont bien fournis à l'appel de printf"
+            },
+            {
+              "text": "il remplace automatiquement la variable fmt par la chaîne littérale \"%s\""
+            },
+            {
+              "text": "il refuse de compiler et signale une erreur fatale bloquant la génération de l'exécutable"
+            },
+            {
+              "text": "il émet un avertissement (format non littéral) mais compile tout de même le programme"
+            }
+          ],
+          "answer": 3,
+          "explanation": "Avec -Wformat=2, gcc émet un avertissement (format non littéral) mais compile tout de même.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 43"
+        },
+        {
+          "id": "ceg4799_examen_q44",
+          "question": "Dans ce fragment d'un programme Set-UID root, où se situe la fenêtre TOCTTOU exploitable ?",
+          "code": "if (access(\"/tmp/X\", W_OK) == 0) {   /* (1) contrôle */\n    f = open(\"/tmp/X\", O_WRONLY); /* (2) usage */\n    write_to_file(f);\n}",
+          "options": [
+            {
+              "text": "entre (1) et (2) : la cible de « /tmp/X » peut changer après access() et avant open()"
+            },
+            {
+              "text": "après open(), une fois le descripteur de fichier obtenu par le programme"
+            },
+            {
+              "text": "à l'intérieur de write_to_file(), pendant l'écriture des données dans le fichier cible visé"
+            },
+            {
+              "text": "dans access() lui-même, qui lit deux fois de suite les permissions du fichier"
+            }
+          ],
+          "answer": 0,
+          "explanation": "La fenêtre TOCTTOU se situe entre access() et open() : la cible du nom peut changer.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 44"
+        },
+        {
+          "id": "ceg4799_examen_q45",
+          "question": "Le paramètre s provient du réseau. Quelle est la faille, et quel est le correctif minimal ?",
+          "code": "void log_msg(char *s) {\n    printf(s);        /* s vient du réseau */\n}",
+          "options": [
+            {
+              "text": "débordement de tampon : borner la longueur de s avant l'appel"
+            },
+            {
+              "text": "déréférencement nul : tester if (s != NULL) avant l'appel"
+            },
+            {
+              "text": "s sert de chaîne de format : la corriger en printf(\"%s\", s)"
+            },
+            {
+              "text": "fuite de mémoire : libérer s avec free(s) après l'appel"
+            }
+          ],
+          "answer": 2,
+          "explanation": "Le paramètre est utilisé comme chaîne de format ; le correctif minimal est printf(\"%s\", …).",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 45"
+        },
+        {
+          "id": "ceg4799_examen_q46",
+          "question": "Avec MAP_SHARED sur un fichier ouvert en écriture, que produit l'affectation map[0] = 'X' ?",
+          "code": "map = mmap(NULL, sz, PROT_READ|PROT_WRITE, MAP_SHARED, f, 0);\nmap[0] = 'X';",
+          "options": [
+            {
+              "text": "l'écriture échoue, car la page mémoire mappée est protégée en lecture seule"
+            },
+            {
+              "text": "une copie privée est créée et le fichier d'origine reste parfaitement intact"
+            },
+            {
+              "text": "l'octet 0 du fichier est modifié, car MAP_SHARED reporte l'écriture dans le fichier"
+            },
+            {
+              "text": "seule la mémoire vive change ; le contenu du disque n'est jamais mis à jour ni synchronisé"
+            }
+          ],
+          "answer": 2,
+          "explanation": "Avec MAP_SHARED, map[0] = 'X' modifie l'octet 0 du fichier sur le disque.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 46"
+        },
+        {
+          "id": "ceg4799_examen_q47",
+          "question": "Comment la contre-mesure « vérification et utilisation répétées » réduit-elle le risque ?",
+          "options": [
+            {
+              "text": "en retirant le bit collant du répertoire /tmp, ce qui empêche la création de nouveaux liens symboliques"
+            },
+            {
+              "text": "en répétant contrôle et usage et en comparant les inodes : la course doit alors être gagnée plusieurs fois"
+            },
+            {
+              "text": "en rendant le fichier cible accessible en lecture seule, ce qui bloque toute écriture concurrente"
+            },
+            {
+              "text": "en imprimant un avertissement à chaque ouverture, afin que l'administrateur repère l'attaque en cours"
+            }
+          ],
+          "answer": 1,
+          "explanation": "En répétant contrôle et usage (inodes comparés), l'attaquant doit gagner la course plusieurs fois de suite.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 47"
+        },
+        {
+          "id": "ceg4799_examen_q48",
+          "question": "Le prototype est int printf(const char *format, ...). Pourquoi le compilateur ne proteste-t-il pas si l'on passe moins d'arguments que de spécificateurs ?",
+          "options": [
+            {
+              "text": "parce que la chaîne de format n'est lue qu'à l'édition de liens, une fois le nombre d'arguments connu"
+            },
+            {
+              "text": "parce que printf() est variadique : le nombre d'arguments n'est pas confronté à la chaîne de format"
+            },
+            {
+              "text": "parce que les arguments facultatifs manquants sont automatiquement remplacés par la valeur 0 à l'appel"
+            },
+            {
+              "text": "parce que les spécificateurs en trop sont retirés par le préprocesseur au moment de la compilation du code"
+            }
+          ],
+          "answer": 1,
+          "explanation": "printf est variadique : ses arguments ne sont pas confrontés à la chaîne de format, d'où l'absence d'avertissement.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 48"
+        },
+        {
+          "id": "ceg4799_examen_q49",
+          "question": "Pourquoi le canari de pile (StackGuard) ne contre-t-il pas de façon fiable les attaques par chaîne de format ?",
+          "options": [
+            {
+              "text": "parce que StackGuard ne protège que les tampons situés sur le tas et jamais ceux de la pile d'exécution"
+            },
+            {
+              "text": "une écriture par %n n'altère qu'un emplacement, sans toucher au canari, contrairement à un débordement"
+            },
+            {
+              "text": "parce que la valeur du canari est d'abord imprimée par un %x, puis réutilisée telle quelle par l'attaquant"
+            },
+            {
+              "text": "parce que StackGuard est automatiquement désactivé dès qu'une fonction de la famille printf est appelée"
+            }
+          ],
+          "answer": 1,
+          "explanation": "Une écriture %n ne modifie qu'un emplacement ciblé, sans toucher au canari : StackGuard ne la bloque pas.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 49"
+        },
+        {
+          "id": "ceg4799_examen_q50",
+          "question": "Qu'est-ce que la copie sur écriture (copy-on-write) ?",
+          "options": [
+            {
+              "text": "une méthode pour copier un fichier d'un disque à un autre en l'écrivant deux fois afin d'en vérifier l'intégrité"
+            },
+            {
+              "text": "un mécanisme de verrouillage qui sérialise les écritures concurrentes de plusieurs processus en mémoire partagée"
+            },
+            {
+              "text": "une sauvegarde automatique du contenu d'un fichier, réalisée par le noyau avant chaque écriture sur ce fichier"
+            },
+            {
+              "text": "plusieurs pages virtuelles partagent une page physique en lecture ; au premier écrit, le contenu est copié ailleurs"
+            }
+          ],
+          "answer": 3,
+          "explanation": "La copie sur écriture : une page partagée en lecture est copiée au premier accès en écriture.",
+          "concept": "Chaîne de format, condition de course et Dirty COW",
+          "source": "Examen de préparation, question 50"
         }
       ]
     }
