@@ -1,6 +1,6 @@
 /*
  * Banques indépendantes de l'interface. Ajoutez ou remplacez les rangées ci-dessous;
- * l'application construit automatiquement les sessions à partir de QUESTION_BANK.
+ * l'application construit automatiquement les sessions à partir de window.COURSES.csi4506.
  * Format V/F: [énoncé, réponse, indice, explication, concept, difficulté, page]
  * Format QCM: [question, index correct, choix, indice, raisons par choix,
  *              concept, difficulté, page]
@@ -276,10 +276,22 @@
     }
   };
 
-  const QUESTION_BANK = Object.fromEntries(Object.entries(data).map(([key, chapter], idx) => [
-    key,
-    [...chapter.tf.map((r,i) => tf(idx+1,i+1,r)), ...chapter.mc.map((r,i) => mc(idx+1,i+1,r))]
-  ]));
-  window.QUESTION_BANK = QUESTION_BANK;
-  window.CHAPTERS = Object.fromEntries(Object.entries(data).map(([key, chapter]) => [key, chapter.title]));
+  window.COURSES = window.COURSES || {};
+  window.COURSES.csi4506 = {
+    code: "CSI 4506",
+    title: {fr: "Introduction à l'intelligence artificielle", en: "Introduction to Artificial Intelligence"},
+    term: {fr: "Fiches de cours · Automne 2026", en: "Course notes · Fall 2026"},
+    unit: {fr: ["chapitre", "chapitres"], en: ["chapter", "chapters"]},
+    intro: {
+      fr: "Huit chapitres, deux modes de pratique et des corrections expliquées. Les questions suivent les consignes de la FAQ : appliquer les notions, comparer des concepts proches et interpréter des exemples.",
+      en: "Eight chapters, two practice modes, and explained answers. The questions follow the FAQ guidance: apply ideas, compare related concepts, and interpret examples."
+    },
+    timerNote: {fr: "Simulation chronométrée : 60 minutes, comme le Quiz 1.", en: "Timed practice: 60 minutes, like Quiz 1."},
+    session: {tf: 15, mc: 10, minutes: 60},
+    chapters: Object.fromEntries(Object.entries(data).map(([key, chapter], idx) => [key, {
+      title: chapter.title,
+      label: `Chapitre ${idx+1} · 0${idx+1}.pdf`,
+      questions: [...chapter.tf.map((r,i) => tf(idx+1,i+1,r)), ...chapter.mc.map((r,i) => mc(idx+1,i+1,r))]
+    }]))
+  };
 })();
